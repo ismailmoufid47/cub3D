@@ -1,7 +1,7 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include
+CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include -fsanitize=address
 
 OS = $(shell uname -s)
 
@@ -24,8 +24,11 @@ LIBFT = libft/libft.a
 
 SRC = mandatory/cub3D.c \
       mandatory/parse/parse_cub_file.c \
-      mandatory/parse/parse_textures_colors.c \
-      mandatory/parse/parse_textures_colors_utils.c
+	  mandatory/parse/parse_map.c \
+	  mandatory/parse/parse_textures_colors.c \
+	  mandatory/parse/parse_utils.c \
+	  mandatory/free_ressources/parse/parse_map.c
+
 
 #SRC_BONUS = bonus/...
 

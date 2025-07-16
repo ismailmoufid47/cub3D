@@ -1,63 +1,59 @@
 
 #include "../include/cub3D.h"
 
-bool ft_compare(char c)
+int	open_cub_file(char *filename)
 {
-	if (c == '0' || c == '1' || c == 'N')
-		return true;
-	if (c == 'S' || c == 'W' || c == 'E')
-		return true;
-	return false;
+	int		fd;
+	char	*found;
+
+	found = ft_strstr(filename, ".cub");
+	if (!found || *(found + 4) || found == filename)
+	{
+		ft_putendl_fd("Error", 2);
+		exit(EXIT_FAILURE);
+	}
+	fd = open(filename, O_RDONLY, 0777);
+	if (fd == -1)
+	{
+		ft_putendl_fd("Error", 2);
+		exit(EXIT_FAILURE);
+	}
+	return (fd);
 }
 
-void	validate_map(char	**map_lines)
+void	print_textures_and_colors(char **textures_and_colors)
 {
-	char c;
-	int hash_table[255]; 
+	int	i;
 
-	ft_memset(hash_table,0,sizeof(int) * 255);
-	while (*map_lines)
+	i = 0;
+	while (textures_and_colors[i])
 	{
-		while (**map_lines)
-		{
-			c = **map_lines;
-			if (ft_compare(c) == false)
-				printf("error"); //change later
-			hash_table[c]++;
-			if (hash_table[c] > 1)
-				printf("error"); //chane later
-				*map_lines++;
-		}
-		map_lines++;
+		ft_putendl_fd(textures_and_colors[i], 1);
+		i++;
 	}
 }
 
-char	**get_map(int fd)
+void	print_map(char **map)
 {
-	char	**map_lines;
-	int		size;
+	int	i;
 
-	map_lines = calloc(1, sizeof(char *));
-	map_lines[0] = get_next_line2(fd);
-	size = 1;
-	while (map_lines[size])
+	i = 0;
+	while (map[i])
 	{
-		map_lines = ft_realloc(map_lines, size * sizeof(char *),
-				(size + 1) * sizeof(char *));
-		*(ft_strchr(map_lines[size], '\n')) = '\0';
-		size++;
+		ft_putendl_fd(map[i], 1);
+		i++;
 	}
-	
-	return (map_lines);
 }
 
 void	parse_cub_file(char	*filename)
 {
 	int		fd;
 	char	**textures_and_colors;
+	char	**map;
 
 	fd = open_cub_file(filename);
-	textures_and_colors = 
-		get_textures_and_colors(validate_text_col(get_six_lines(fd)));
-	
+	textures_and_colors = get_textures_and_colors(fd);
+	print_textures_and_colors(textures_and_colors);
+	map = get_map(fd);
+	print_map(map);
 }

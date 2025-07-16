@@ -21,18 +21,22 @@ typedef enum e_text_col
 }	t_text_col;
 
 // Parse:
-char		**get_map(int fd);
 void		parse_cub_file(char *filename);
 
 // Parse Textures:
-char		**get_sorted_files(char ***textures_and_colors);
-char		**get_textures_and_colors(char ***textures_and_colors);
-char		***validate_text_col(char **lines);
+char		**get_textures_and_colors(int fd);
 
-// Parse Textures utils:
-int			open_cub_file(char *filename);
+// Parse Map:
+char		**get_map(int fd);
+
+// Parse utils:
 char		*get_next_line2(int fd);
-char		**get_six_lines(int fd);
-t_text_col	get_text_value(char *s);
+
+void	filling_the_map(char **map)
+
+//Errors:
+
+// map Error:
+void		pre_map_error(char **map);
 
 #endif
