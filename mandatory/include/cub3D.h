@@ -5,9 +5,11 @@
 # include "MLX42.h"
 # include "libft.h"
 # include <fcntl.h>
+# include <float.h>
+# include <math.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <stdbool.h>
 
 typedef enum e_text_col
 {
@@ -18,26 +20,26 @@ typedef enum e_text_col
 	F,
 	C,
 	INVALID
-}	t_text_col;
+}		t_text_col;
 
 // Parse:
 
-void		parse_cub_file(char *filename);
+void	parse_cub_file(char *filename);
 
 // Parse Textures:
-char		**get_textures_and_colors(int fd);
+char	**get_textures_and_colors(int fd);
 
 // Parse Map:
-char		**get_map(int fd);
+char	**get_map(int fd);
 
-//Utils:
+// Utils:
 
 // Parse utils:
-char		*get_next_non_empty_line(int fd);
+char	*get_next_non_empty_line(int fd);
 
-//Errors:
+// Errors:
 
 // map Error:
-void		pre_map_error(char **map);
+void	pre_map_error(char **map);
 
 #endif
