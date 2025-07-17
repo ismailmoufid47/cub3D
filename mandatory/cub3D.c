@@ -1,6 +1,14 @@
 #include "include/cub3D.h"
 
-int	main(int ac, char **av)
+int	main(void)
 {
-	parse_cub_file(av[ac - 1]);
+	t_mlx	*mlx;
+
+	mlx = mlx_init(800, 600, "Cub3D", true);
+
+	mlx_put_pixel(mlx, 400, 300, 0xFFFFFF);
+	mlx_loop(mlx);
+	mlx_destroy(mlx);
+
+	printf("Welcome to the Cub3D game!\n");
 }
