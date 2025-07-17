@@ -21,6 +21,7 @@ typedef enum e_text_col
 }	t_text_col;
 
 // Parse:
+
 void		parse_cub_file(char *filename);
 
 // Parse Textures:
@@ -29,10 +30,10 @@ char		**get_textures_and_colors(int fd);
 // Parse Map:
 char		**get_map(int fd);
 
-// Parse utils:
-char		*get_next_line2(int fd);
+//Utils:
 
-void	filling_the_map(char **map)
+// Parse utils:
+char		*get_next_non_empty_line(int fd);
 
 //Errors:
 

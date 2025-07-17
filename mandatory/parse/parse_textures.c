@@ -10,7 +10,7 @@ char	**get_six_lines(int fd)
 	i = 0;
 	while (i < 6)
 	{
-		lines[i] = get_next_line2(fd);
+		lines[i] = get_next_non_empty_line(fd);
 		if (!lines[i])
 		{
 			ft_free_split(lines);
@@ -39,7 +39,6 @@ t_text_col	get_text_value(char *s)
 	if (ft_strcmp(s, "C") == 0)
 		return (C);
 	return (INVALID);
-
 }
 
 char	***validate_text_col(int fd)
@@ -110,4 +109,3 @@ char	**get_textures_and_colors(int fd)
 	}
 	return (sorted_files(textures_and_colors));
 }
-

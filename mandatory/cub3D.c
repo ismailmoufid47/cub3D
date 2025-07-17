@@ -1,6 +1,6 @@
 #include "include/cub3D.h"
 
-int main()
+int	main(void)
 {
 	parse_cub_file("example.cub");
 }

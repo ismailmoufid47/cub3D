@@ -1,7 +1,7 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include# -fsanitize=address
 
 OS = $(shell uname -s)
 
@@ -23,22 +23,20 @@ MLX = MLX42/build/libmlx42.a
 LIBFT = libft/libft.a 
 
 SRC = mandatory/cub3D.c \
-      mandatory/parse/parse_cub_file.c \
+      mandatory/parse/parse.c \
 	  mandatory/parse/parse_map.c \
-	  mandatory/parse/parse_textures_colors.c \
-	  mandatory/parse/parse_utils.c \
+	  mandatory/parse/parse_textures.c \
+	  mandatory/parse/utils/parse_utils.c \
 	  mandatory/free_ressources/parse/parse_map.c
 
+#SRC_BONUS = 
 
-#SRC_BONUS = bonus/...
+OBJ = $(SRC:%.c=obj/%.o)
+#OBJ_BONUS = $(SRC_BONUS:%.c=obj/%.o)
 
-all: $(NAME)
 
-$(NAME): $(MLX) $(LIBFT) $(SRC)
-	$(CC) $(CFLAGS) $(SRC) $(LFLAGS) -o $(NAME)
-
-bonus: $(MLX) $(LIBFT) $(SRC_BONUS)
-	$(CC) $(CFLAGS) $(SRC_BONUS) $(LFLAGS) -o $(NAME)
+$(NAME): $(MLX) $(LIBFT) $(OBJ)
+	$(CC) $(OBJ) $(LFLAGS) -o $(NAME)
 
 $(MLX):
 	@mkdir -p MLX42/build
@@ -47,9 +45,20 @@ $(MLX):
 $(LIBFT):
 	make -C libft
 
+obj/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+
+all: $(NAME)
+
+bonus: $(MLX) $(LIBFT) $(OBJ_BONUS)
+	$(CC) $(OBJ_BONUS) $(LFLAGS) -o $(NAME)
+
 clean:
 	make -C libft clean
 	make -C MLX42/build clean
+	rm -rf obj
 
 fclean: clean
 	rm -f $(NAME)

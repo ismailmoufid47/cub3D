@@ -1,7 +1,7 @@
 
-#include "../include/cub3D.h"
+#include "../../include/cub3D.h"
 
-char	*get_next_line2(int fd)
+char	*get_next_non_empty_line(int fd)
 {
 	char	*line;
 
@@ -13,8 +13,5 @@ char	*get_next_line2(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (!line)
-		return (NULL);
 	return (line);
 }
-
