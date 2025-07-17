@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isel-mou <isel-mou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:45:49 by isel-mou          #+#    #+#             */
-/*   Updated: 2025/01/08 17:27:51 by isel-mou         ###   ########.fr       */
+/*   Updated: 2025/07/17 21:14:17 by moel-amr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
-
+#include <stdio.h>
 char	*ft_strchr(const char *s, int c)
 {
 	c = (unsigned char)c;
@@ -21,7 +21,5 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *)s);
 		s++;
 	}
-	if (!c)
-		return ((char *)s);
 	return (NULL);
 }

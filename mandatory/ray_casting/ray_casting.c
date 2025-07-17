@@ -1,102 +1,172 @@
-#include "../../include/cub3D.h"
+#include "../include/cub3D.h"
 
-draw_map(char **map)
+void	draw_ray(t_ray *rays, t_mlx_image *image)
 {
-	int y = 0;
-	int x = 0;
-	int i = 0;
-	int j = 0;
+	int x0, y0, x1, y1;
+	int dx, dy;
+	int sx, sy;
+	int err, e2;
+	
+	x0 = rays->start_x * TILE;
+	y0 = rays->start_y * TILE;
+	x1 = rays->end_x * TILE;
+	y1 = rays->end_y * TILE;
+	dx = abs(x1 - x0);
+	dy = abs(y1 - y0);
+	sx = (x0 < x1) ? 1 : -1;
+	sy = (y0 < y1) ? 1 : -1;
+	err = dx - dy;
+	while (1)
+	{
+		mlx_put_pixel(image, x0, y0, 0xFF);
+		if (x0 == x1 && y0 == y1)
+			break ;
+		e2 = 2 * err;
+		if (e2 > -dy)
+		{
+			err -= dy;
+			x0 += sx;
+		}
+		if (e2 < dx)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
+}
 
-	while(map[y] != NULL)
+void	draw_map(char **map, t_mlx_image *image)
+{
+	int	y;
+	int	x;
+	int	y2;
+	int	x2;
+
+	y = 0;
+	x = 0;
+	y2 = 0;
+	x2 = 0;
+	while (map[y])
 	{
 		x = 0;
 		while (map[y][x])
 		{
 			if (map[y][x] == '1')
 			{
-				while (i < 10)
+				y2 = 0;
+				while (y2 < TILE)
 				{
-					while (j < 10)
+					x2 = 0;
+					while (x2 < TILE)
 					{
-						ft_put_pixel()
-						j++;
+						mlx_put_pixel(image, x * TILE + x2, y * TILE + y2,
+							0xFFFFFF);
+						x2++;
 					}
-					i++;
+					y2++;
 				}
 			}
-			y++;
+			else
+			{
+				y2 = 0;
+				while (y2 < TILE)
+				{
+					x2 = 0;
+					while (x2 < TILE)
+					{
+						mlx_put_pixel(image, x * TILE + x2, y * TILE + y2, 0x0);
+						x2++;
+					}
+					y2++;
+				}
+			}
+			x++;
 		}
-		x++;
+		y++;
 	}
 }
+// void cast_rays(t_all_data *all_data)
+// {
+		
+// }
 
 void	ray_casting(t_all_data *all_data, float angle)
 {
-	float x_ray_direction = cos(angle);
-	float y_ray_direction = sin(angle);
-	float delta_x;
-	float delta_y;
+	float	x_ray_direction;
+	float	y_ray_direction;
+	float	delta_x;
+	float	delta_y;
+	float	ray_x_col;
+	float	ray_y_col;
+	int		map_x;
+	int		map_y;
 
+	x_ray_direction = cos(angle);
+	y_ray_direction = sin(angle);
+	ray_x_col = 0;
+	ray_y_col = 0;
+	map_x = (int)(all_data->player->x);
+	map_y = (int)all_data->player->y;
+	all_data->rays->start_x = all_data->player->x;
+	all_data->rays->start_y = all_data->player->y;
 	if (x_ray_direction == 0)
-		delta_x = FLT_MAX;
+		delta_x = INFINITY;
 	else
 		delta_x = fabs(1 / x_ray_direction);
 	if (y_ray_direction == 0)
-		delta_y = FLT_MAX;
+		delta_y = INFINITY;
 	else
 		delta_y = fabs(1 / y_ray_direction);
-	float ray_x_col = 0;
-	float ray_y_col = 0;
-	int map_x_pos = (int)player.x;
-	int map_y_pos = (int)player.y;
 	if (x_ray_direction > 0)
-		ray_x_col = delta_x * 1.0 - (player.x - (map_x));
+		ray_x_col = delta_x * ((map_x + 1.0) - all_data->player->x);
 	else if (x_ray_direction < 0)
-		ray_x_col = delta_x * (player.x - map_x);
+		ray_x_col = delta_x * (all_data->player->x - map_x);
 	if (y_ray_direction > 0)
-		ray_y_col = delta_y * (1.0 - (player.y - map_y));
+		ray_y_col = delta_y * ((map_y + 1.0) - all_data->player->y);
 	else if (y_ray_direction < 0)
-		ray_y_col = delta_y * (player.y - map_y);
-	float x_hit;
-	float y_hit;
+		ray_y_col = delta_y * (all_data->player->y - map_y);
 	while (1337)
 	{
 		if (ray_x_col < ray_y_col)
 		{
-			if (dx > 0)
-				map_x_pos += 1;
+			if (x_ray_direction > 0)
+				map_x += 1;
 			else
-				map_x_pos -= 1;
-
+				map_x -= 1;
 			ray_x_col += delta_x;
-			if (map[map_y][map_x] == '1')
+			if (all_data->map[map_y][map_x] == '1')
 			{
-				if (dx > 0)
-					hit_x = map_x;
+				if (x_ray_direction > 0)
+					all_data->rays->end_x = map_x;
 				else
-					hit_x = map_x + 1;
-				hit_y = player.y + ((hit_x - player_x) / x_ray_direction) * y_ray_direction;
-				break;
+					all_data->rays->end_x = map_x + 1;
+				all_data->rays->end_y = all_data->player->y
+					+ ((all_data->rays->end_x - all_data->player->x)
+						/ x_ray_direction) * y_ray_direction;
+				break ;
 			}
 		}
 		else
 		{
-			if (dx < 0)
-				map_y_pos += 1;
+			if (y_ray_direction > 0)
+				map_y += 1;
 			else
-				map_y_pos -= 1;
+				map_y -= 1;
 			ray_y_col += delta_y;
-			if (map[map_y][map_x] == '1')
+			if (all_data->map[map_y][map_x] == '1')
 			{
-				if (dx > 0)
-					hit_y = map_y;
+				if (y_ray_direction > 0)
+					all_data->rays->end_y = map_y;
 				else
-					hit_y = map_y + 1;
-				hit_x = player.x + ((hit_y - player_y) / y_ray_direction) * x_ray_direction;
-				break;
+					all_data->rays->end_y = map_y + 1;
+				all_data->rays->end_x = all_data->player->x
+					+ ((all_data->rays->end_y - all_data->player->y)
+						/ y_ray_direction) * x_ray_direction;
+				break ;
 			}
 		}
 	}
-	draw_map(map);
+	draw_map(all_data->map, all_data->image);
+	draw_ray(all_data->rays, all_data->image);
 	return ;
 }

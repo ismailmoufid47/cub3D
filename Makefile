@@ -1,7 +1,7 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include# -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include -fsanitize=address
 
 OS = $(shell uname -s)
 
@@ -24,7 +24,9 @@ SRC = mandatory/cub3D.c \
 	  mandatory/parse/parse_map.c \
 	  mandatory/parse/parse_textures.c \
 	  mandatory/parse/utils/parse_utils.c \
-	  mandatory/free_ressources/parse/parse_map.c
+	  mandatory/free_ressources/parse/parse_map.c \
+	  mandatory/ray_casting/ray_casting.c 
+	  
 
 #SRC_BONUS = 
 
@@ -33,7 +35,7 @@ OBJ = $(SRC:%.c=obj/%.o)
 
 
 $(NAME): $(MLX) $(LIBFT) $(OBJ) mandatory/include/cub3D.h
-	$(CC) $(OBJ) $(LFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME)
 
 $(MLX):
 	@mkdir -p MLX42/build
@@ -50,7 +52,7 @@ obj/%.o: %.c
 all: $(NAME)
 
 bonus: $(MLX) $(LIBFT) $(OBJ_BONUS)
-	$(CC) $(OBJ_BONUS) $(LFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LFLAGS) -o $(NAME)
 
 clean:
 	make -C libft clean
