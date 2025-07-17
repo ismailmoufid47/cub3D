@@ -1,6 +1,6 @@
 #include "include/cub3D.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	parse_cub_file("example.cub");
+	parse_cub_file(av[ac - 1]);
 }

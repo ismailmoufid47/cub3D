@@ -6,9 +6,6 @@ CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include# -fsaniti
 OS = $(shell uname -s)
 
 ifeq ($(OS),Darwin)
-	# Make brew install in your HOME:
-	# 	https://github.com/kube/42homebrew
-	# brew install glfw
 	LFLAGS = -L MLX42/build -L $(HOME)/.brew/opt/glfw/lib -L libft -l mlx42 -l glfw -l ft \
 			 -framework Cocoa -framework OpenGL -framework IOKit
 else ifeq ($(OS),Linux)
@@ -35,7 +32,7 @@ OBJ = $(SRC:%.c=obj/%.o)
 #OBJ_BONUS = $(SRC_BONUS:%.c=obj/%.o)
 
 
-$(NAME): $(MLX) $(LIBFT) $(OBJ)
+$(NAME): $(MLX) $(LIBFT) $(OBJ) mandatory/include/cub3D.h
 	$(CC) $(OBJ) $(LFLAGS) -o $(NAME)
 
 $(MLX):
