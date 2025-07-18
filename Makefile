@@ -23,6 +23,7 @@ SRC = mandatory/cub3D.c \
       mandatory/parse/parse.c \
 	  mandatory/parse/parse_map.c \
 	  mandatory/parse/parse_textures.c \
+	  mandatory/map_rendering/map_rendering.c \
 	  mandatory/parse/utils/parse_utils.c \
 	  mandatory/free_ressources/parse/parse_map.c \
 	  mandatory/ray_casting/ray_casting.c 
@@ -34,7 +35,7 @@ OBJ = $(SRC:%.c=obj/%.o)
 #OBJ_BONUS = $(SRC_BONUS:%.c=obj/%.o)
 
 
-$(NAME): $(MLX) $(LIBFT) $(OBJ) mandatory/include/cub3D.h
+$(NAME): $(MLX) $(LIBFT) $(SRC) $(OBJ) mandatory/include/cub3D.h
 	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME)
 
 $(MLX):
@@ -55,15 +56,13 @@ bonus: $(MLX) $(LIBFT) $(OBJ_BONUS) bonus/include/cub3D.h
 	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LFLAGS) -o $(NAME)
 
 clean:
-	make -C libft clean
-	make -C MLX42/build clean
 	rm -rf obj
 
 fclean: clean
 	rm -f $(NAME)
 	make -C libft fclean
 
-re: fclean all
+re: clean all
 
 restore: fclean
 	rm -rf MLX42/build

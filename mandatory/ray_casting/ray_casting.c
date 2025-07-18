@@ -104,6 +104,7 @@ void	ray_casting(t_all_data *all_data, t_ray *ray, float angle)
 	map_y = (int)all_data->player->y;
 	ray->start_x = all_data->player->x;
 	ray->start_y = all_data->player->y;
+	ray->angle = angle;
 	if (x_ray_direction == 0)
 		delta_x = INFINITY;
 	else
@@ -163,7 +164,6 @@ void	cast_rays(t_all_data *all_data)
 	int		i;
 
 	angle = all_data->player->direction - ((FOV * PI / 180) / 2);
-	// draw_map(all_data->map, all_data->image);
 	i = 0;
 	while (i < N_RAYS)
 	{

@@ -1,16 +1,11 @@
-NO textures/path_to_the_north_texture
-SO textures/path_to_the_south_texture
-WE textures/path_to_the_west_texture
-EA textures/path_to_the_east_texture
+NO textures/blue_stone.png
+SO textures/color_stone.png
+WE textures/grey_stone.png
+EA textures/red_brick.png
 
-C 255,255,255
-F 010,100,255
+C 50,0,50
+F 255,255,0
 
-
-111111111
-1000000001
-1000000101
-1000000001
-1000000001
-1000101W1
-111111111
+111
+1E1
+111
