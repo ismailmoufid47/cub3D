@@ -121,11 +121,14 @@ void	ray_casting(t_all_data *all_data, float angle)
 		ray_distance_x = delta_x * ((map_x + 1.0) - all_data->player->x);
 	else if (x_ray_direction < 0)
 		ray_distance_x = delta_x * (all_data->player->x - map_x);
+	else
+		ray_distance_x = INFINITY;
 	if (y_ray_direction > 0)
 		ray_distance_y = delta_y * ((map_y + 1.0) - all_data->player->y);
 	else if (y_ray_direction < 0)
 		ray_distance_y = delta_y * (all_data->player->y - map_y);
-	
+	else
+		ray_distance_y = INFINITY;
 	float distance_to_wall = 0;
 	while (all_data->map[map_y][map_x] != '1')
 	{
