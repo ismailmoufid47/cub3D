@@ -5,45 +5,50 @@
 # include "MLX42.h"
 # include "libft.h"
 # include <fcntl.h>
+# include <limits.h>
 # include <math.h>
 # include <stdbool.h>
 # include <stdio.h>
-# include <limits.h>
 # include <stdlib.h>
 
-#define TILE 100
-#define WIDTH 1000
-#define HEIGHT 1000
-#define FOV 90
-#define N_RAYS 200
+# define TILE 100
+# define WIDTH 1000
+# define HEIGHT 1000
+# define FOV 90
+# define N_RAYS 200
+# define WALL_HEIGHT 50
 
+# define PI 3.1415926
 
 typedef struct s_player
 {
-	float	y;
-	float	x;
-	float	direction;
-}	t_player;
+	float		y;
+	float		x;
+	float		direction;
+}				t_player;
 
 typedef struct s_ray
 {
-	float	start_y;
-	float	start_x;
-	float	end_x;
-	float	end_y;
-	float	angle;
-
-}	t_ray;
+	float		start_y;
+	float		start_x;
+	float		end_x;
+	float		end_y;
+	float		angle;
+}				t_ray;
 
 typedef struct s_all_data
 {
 	char		**textures_and_colors;
+	char		***colors;
 	char		**map;
 	t_mlx		*mlx;
 	t_mlx_image	*image;
 	t_player	*player;
 	t_ray		*rays;
-}	t_all_data;
+	int			F_color;
+	int			C_color;
+	int			textures_fd[4];
+}				t_all_data;
 
 typedef enum e_text_col
 {
@@ -54,28 +59,36 @@ typedef enum e_text_col
 	F,
 	C,
 	INVALID
-}		t_text_col;
+}				t_text_col;
 
 // Parse:
 
-int		open_cub_file(char *filename);
+int				open_cub_file(char *filename);
 
 // Parse Textures:
-char	**get_textures_and_colors(int fd);
+char			**get_textures_and_colors(int fd, t_all_data *all_data);
+void			get_colors(t_all_data *all_data);
 
 // Parse Map:
-char	**get_map(int fd);
+char			**get_map(int fd);
+
+// Cast Rays:
+void			cast_rays(t_all_data *all_data);
 
 // Utils:
 
 // Parse utils:
-char	*get_next_non_empty_line(int fd);
-void ray_casting(t_all_data *all_data, float angle);
+char			**get_six_lines(int fd);
+char			*get_next_non_empty_line(int fd);
+t_text_col		get_text_value(char *s);
 
 // Errors:
-void cast_rays(t_all_data *all_data);
+
+// Textures Error:
+void			textures_and_colors_error(char ***textures_and_colors);
+
 // map Error:
-void	pre_map_error(char **map);
-void	draw_map(char **map, t_mlx_image *image);
-#define PI 3.141592653589793238462643383279502884197
+void			pre_map_error(char **map);
+
+void			draw_map(char **map, t_mlx_image *image);
 #endif

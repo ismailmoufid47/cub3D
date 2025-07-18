@@ -39,16 +39,17 @@ t_all_data	*init_all_data(void)
 	all_data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
 	all_data->image = mlx_new_image(all_data->mlx, WIDTH, HEIGHT);
 	fd = open_cub_file("maps/example.cub");
-	all_data->textures_and_colors = get_textures_and_colors(fd);
+	all_data->textures_and_colors = get_textures_and_colors(fd,all_data);
+	get_colors(all_data);
 	all_data->map = get_map(fd);
 	all_data->player = init_player(all_data->map);
-	all_data->rays = malloc(sizeof(t_ray));
+	all_data->rays = malloc(sizeof(t_ray) * N_RAYS);
 	return (all_data);
 }
 
 int	main(void)
 {
-	t_all_data	*all_data;
+	t_all_data *all_data;
 
 	all_data = init_all_data();
 	mlx_image_to_window(all_data->mlx, all_data->image, 0, 0);

@@ -6,7 +6,6 @@ void	draw_ray(t_ray *rays, t_mlx_image *image)
 	int dx, dy;
 	int sx, sy;
 	int err, e2;
-	
 	x0 = rays->start_x * TILE;
 	y0 = rays->start_y * TILE;
 	x1 = rays->end_x * TILE;
@@ -85,30 +84,17 @@ void	draw_map(char **map, t_mlx_image *image)
 		y++;
 	}
 }
-void cast_rays(t_all_data *all_data)
-{
-	float angle = all_data->player->direction - ((FOV * PI / 180) / 2);
-	draw_map(all_data->map, all_data->image);
-	int i = 0;
 
-	while (i < N_RAYS)
-	{
-		angle = angle + ((FOV * PI / 180) / N_RAYS);
-		ray_casting(all_data,  angle);
-		i++;
-	}		
-}
-
-void	ray_casting(t_all_data *all_data, float angle)
+void	ray_casting(t_all_data *all_data, t_ray *ray, float angle)
 {
-	float	x_ray_direction;
-	float	y_ray_direction;
-	float	delta_x;
-	float	delta_y;
-	float	ray_distance_x;
-	float	ray_distance_y;
-	int		map_x;
-	int		map_y;
+	float x_ray_direction;
+	float y_ray_direction;
+	float delta_x;
+	float delta_y;
+	float ray_distance_x;
+	float ray_distance_y;
+	int map_x;
+	int map_y;
 
 	x_ray_direction = cos(angle);
 	y_ray_direction = sin(angle);
@@ -116,8 +102,8 @@ void	ray_casting(t_all_data *all_data, float angle)
 	ray_distance_y = 0;
 	map_x = (int)(all_data->player->x);
 	map_y = (int)all_data->player->y;
-	all_data->rays->start_x = all_data->player->x;
-	all_data->rays->start_y = all_data->player->y;
+	ray->start_x = all_data->player->x;
+	ray->start_y = all_data->player->y;
 	if (x_ray_direction == 0)
 		delta_x = INFINITY;
 	else
@@ -127,13 +113,13 @@ void	ray_casting(t_all_data *all_data, float angle)
 	else
 		delta_y = fabs(1 / y_ray_direction);
 	if (x_ray_direction > 0)
-		ray_distance_x = delta_x * ((map_x + 1.0) - all_data->player->x);
+		ray_distance_x = delta_x * ((map_x + 1) - all_data->player->x);
 	else if (x_ray_direction < 0)
 		ray_distance_x = delta_x * (all_data->player->x - map_x);
 	else
 		ray_distance_x = INFINITY;
 	if (y_ray_direction > 0)
-		ray_distance_y = delta_y * ((map_y + 1.0) - all_data->player->y);
+		ray_distance_y = delta_y * ((map_y + 1) - all_data->player->y);
 	else if (y_ray_direction < 0)
 		ray_distance_y = delta_y * (all_data->player->y - map_y);
 	else
@@ -164,11 +150,28 @@ void	ray_casting(t_all_data *all_data, float angle)
 					map_y -= 1;
 				ray_distance_y += delta_y;
 			}
-
 		}
 	}
-	all_data->rays->end_y = all_data->player->y + distance_to_wall * y_ray_direction;
-	all_data->rays->end_x = all_data->player->x + distance_to_wall * x_ray_direction;
-	draw_ray(all_data->rays, all_data->image);
+	ray->end_y = all_data->player->y + distance_to_wall * y_ray_direction;
+	ray->end_x = all_data->player->x + distance_to_wall * x_ray_direction;
 	return ;
+}
+
+void	cast_rays(t_all_data *all_data)
+{
+	float	angle;
+	int		i;
+
+	angle = all_data->player->direction - ((FOV * PI / 180) / 2);
+	// draw_map(all_data->map, all_data->image);
+	i = 0;
+	while (i < N_RAYS)
+	{
+		angle += ((FOV * PI / 180) / N_RAYS);
+		ray_casting(all_data, &all_data->rays[i], angle);
+		i++;
+	}
+	i = 0;
+	while (i < N_RAYS)
+		i++;
 }

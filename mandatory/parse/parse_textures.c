@@ -1,51 +1,11 @@
 
 #include "../include/cub3D.h"
 
-char	**get_six_lines(int fd)
+char	***validate_textures_and_colors(int fd)
 {
-	int		i;
 	char	**lines;
-
-	lines = ft_calloc(7, sizeof(char *));
-	i = 0;
-	while (i < 6)
-	{
-		lines[i] = get_next_non_empty_line(fd);
-		if (!lines[i])
-		{
-			ft_free_split(lines);
-			ft_putendl_fd("Error", 2);
-			exit(EXIT_FAILURE);
-		}
-		if (ft_strchr(lines[i], '\n'))
-			*(ft_strchr(lines[i], '\n')) = '\0';
-		i++;
-	}
-	return (lines);
-}
-
-t_text_col	get_text_value(char *s)
-{
-	if (ft_strcmp(s, "NO") == 0)
-		return (NO);
-	if (ft_strcmp(s, "SO") == 0)
-		return (SO);
-	if (ft_strcmp(s, "WE") == 0)
-		return (WE);
-	if (ft_strcmp(s, "EA") == 0)
-		return (EA);
-	if (ft_strcmp(s, "F") == 0)
-		return (F);
-	if (ft_strcmp(s, "C") == 0)
-		return (C);
-	return (INVALID);
-}
-
-char	***validate_text_col(int fd)
-{
-	char		**lines;
-	char		***textures_and_colors;
-	int			i;
+	char	***textures_and_colors;
+	int		i;
 
 	lines = get_six_lines(fd);
 	textures_and_colors = ft_calloc(7, sizeof(char **));
@@ -54,7 +14,7 @@ char	***validate_text_col(int fd)
 	{
 		textures_and_colors[i] = ft_split(lines[i], ' ');
 		if (!textures_and_colors[i][0] || !textures_and_colors[i][1]
-				|| textures_and_colors[i][2])
+			|| textures_and_colors[i][2])
 		{
 			ft_free_split(lines);
 			free_splits(textures_and_colors);
@@ -84,28 +44,72 @@ char	**sorted_files(char ***textures_and_colors)
 	free_splits(textures_and_colors);
 	return (sorted_files);
 }
+bool	check_textures(char **textures_and_colors, t_all_data *all_data)
+{
+	all_data->textures_fd[NO] = open(textures_and_colors[NO], O_RDONLY, 0777);
+	if (all_data->textures_fd[NO] == -1)
+		return (false);
+	all_data->textures_fd[SO] = open(textures_and_colors[SO], O_RDONLY, 0777);
+	if (all_data->textures_fd[SO] == -1)
+		return (false);
+	all_data->textures_fd[WE] = open(textures_and_colors[WE], O_RDONLY, 0777);
+	if (all_data->textures_fd[WE] == -1)
+		return (false);
+	all_data->textures_fd[EA] = open(textures_and_colors[EA], O_RDONLY, 0777);
+	if (all_data->textures_fd[EA] == -1)
+		return (false);
+	return (true);
+}
 
-char	**get_textures_and_colors(int fd)
+char	**get_textures_and_colors(int fd, t_all_data *all_data)
 {
 	char		***textures_and_colors;
 	t_text_col	count[6];
 	t_text_col	type;
 	int			i;
+	char		**sorted_textures;
 
-	textures_and_colors = validate_text_col(fd);
+	textures_and_colors = validate_textures_and_colors(fd);
 	ft_memset(count, 0, sizeof(t_text_col) * 6);
 	i = 0;
 	while (i < 6)
 	{
 		type = get_text_value(textures_and_colors[i][0]);
 		if (type == INVALID || count[type])
-		{
-			free_splits(textures_and_colors);
-			ft_putendl_fd("Error", 2);
-			exit(EXIT_FAILURE);
-		}
+			textures_and_colors_error(textures_and_colors);
 		count[type]++;
 		i++;
 	}
-	return (sorted_files(textures_and_colors));
+	sorted_textures = sorted_files(textures_and_colors);
+	if (check_textures(sorted_textures, all_data) == false)
+		pre_map_error(sorted_textures);
+	return (sorted_textures);
+}
+
+void	get_colors(t_all_data *all_data)
+{
+	char	**ceil;
+	char	**floor;
+
+	ceil = ft_split(all_data->textures_and_colors[C], ',');
+	floor = ft_split(all_data->textures_and_colors[F], ',');
+	if ((!ceil || (!ceil[0] || ft_atoi(ceil[0]) > 255 || ft_atoi(ceil[0]) < 0)
+			|| (!ceil[1] || ft_atoi(ceil[1]) > 255 || ft_atoi(ceil[1]) < 0)
+			|| (!ceil[2] || ft_atoi(ceil[2]) > 255 || ft_atoi(ceil[2]) < 0)
+			|| ceil[3]) || ((!floor[0] || ft_atoi(floor[0]) > 255
+				|| ft_atoi(floor[0]) < 0) || (!floor[1]
+				|| ft_atoi(floor[1]) > 255 || ft_atoi(floor[1]) < 0)
+			|| (!floor[2] || ft_atoi(floor[2]) > 255 || ft_atoi(floor[2]) < 0)
+			|| floor[3]))
+	{
+		ft_free_split(ceil);
+		ft_free_split(floor);
+		pre_map_error(all_data->textures_and_colors);
+	}
+	all_data->C_color = (255 << 24) + (ft_atoi(ceil[0]) << 16)
+		+ (ft_atoi(ceil[1]) << 8) + ft_atoi(ceil[2]);
+	all_data->F_color = (255 << 24) + (ft_atoi(floor[0]) << 16)
+		+ (ft_atoi(floor[1]) << 8) + ft_atoi(floor[2]);
+	ft_free_split(ceil);
+	ft_free_split(floor);
 }

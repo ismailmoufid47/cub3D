@@ -51,7 +51,7 @@ obj/%.o: %.c
 
 all: $(NAME)
 
-bonus: $(MLX) $(LIBFT) $(OBJ_BONUS)
+bonus: $(MLX) $(LIBFT) $(OBJ_BONUS) bonus/include/cub3D.h
 	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LFLAGS) -o $(NAME)
 
 clean:
