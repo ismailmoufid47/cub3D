@@ -85,10 +85,19 @@ void	draw_map(char **map, t_mlx_image *image)
 		y++;
 	}
 }
-// void cast_rays(t_all_data *all_data)
-// {
-		
-// }
+void cast_rays(t_all_data *all_data)
+{
+	float angle = all_data->player->direction - ((FOV * PI / 180) / 2);
+	draw_map(all_data->map, all_data->image);
+	int i = 0;
+
+	while (i < N_RAYS)
+	{
+		angle = angle + ((FOV * PI / 180) / N_RAYS);
+		ray_casting(all_data,  angle);
+		i++;
+	}		
+}
 
 void	ray_casting(t_all_data *all_data, float angle)
 {
@@ -160,7 +169,6 @@ void	ray_casting(t_all_data *all_data, float angle)
 	}
 	all_data->rays->end_y = all_data->player->y + distance_to_wall * y_ray_direction;
 	all_data->rays->end_x = all_data->player->x + distance_to_wall * x_ray_direction;
-	draw_map(all_data->map, all_data->image);
 	draw_ray(all_data->rays, all_data->image);
 	return ;
 }

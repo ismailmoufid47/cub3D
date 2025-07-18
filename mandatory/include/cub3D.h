@@ -73,7 +73,7 @@ char	*get_next_non_empty_line(int fd);
 void ray_casting(t_all_data *all_data, float angle);
 
 // Errors:
-
+void cast_rays(t_all_data *all_data);
 // map Error:
 void	pre_map_error(char **map);
 void	draw_map(char **map, t_mlx_image *image);

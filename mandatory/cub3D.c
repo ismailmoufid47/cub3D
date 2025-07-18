@@ -52,6 +52,6 @@ int	main(void)
 
 	all_data = init_all_data();
 	mlx_image_to_window(all_data->mlx, all_data->image, 0, 0);
-	ray_casting(all_data,  all_data->player->direction);
+	cast_rays(all_data);
 	mlx_loop(all_data->mlx);
 }
