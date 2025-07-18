@@ -96,15 +96,15 @@ void	ray_casting(t_all_data *all_data, float angle)
 	float	y_ray_direction;
 	float	delta_x;
 	float	delta_y;
-	float	ray_x_col;
-	float	ray_y_col;
+	float	ray_distance_x;
+	float	ray_distance_y;
 	int		map_x;
 	int		map_y;
 
 	x_ray_direction = cos(angle);
 	y_ray_direction = sin(angle);
-	ray_x_col = 0;
-	ray_y_col = 0;
+	ray_distance_x = 0;
+	ray_distance_y = 0;
 	map_x = (int)(all_data->player->x);
 	map_y = (int)all_data->player->y;
 	all_data->rays->start_x = all_data->player->x;
@@ -118,54 +118,45 @@ void	ray_casting(t_all_data *all_data, float angle)
 	else
 		delta_y = fabs(1 / y_ray_direction);
 	if (x_ray_direction > 0)
-		ray_x_col = delta_x * ((map_x + 1.0) - all_data->player->x);
+		ray_distance_x = delta_x * ((map_x + 1.0) - all_data->player->x);
 	else if (x_ray_direction < 0)
-		ray_x_col = delta_x * (all_data->player->x - map_x);
+		ray_distance_x = delta_x * (all_data->player->x - map_x);
 	if (y_ray_direction > 0)
-		ray_y_col = delta_y * ((map_y + 1.0) - all_data->player->y);
+		ray_distance_y = delta_y * ((map_y + 1.0) - all_data->player->y);
 	else if (y_ray_direction < 0)
-		ray_y_col = delta_y * (all_data->player->y - map_y);
-	while (1337)
+		ray_distance_y = delta_y * (all_data->player->y - map_y);
+	
+	float distance_to_wall = 0;
+	while (all_data->map[map_y][map_x] != '1')
 	{
-		if (ray_x_col < ray_y_col)
+		distance_to_wall = ray_distance_x;
+		if (ray_distance_x < ray_distance_y)
 		{
-			if (x_ray_direction > 0)
-				map_x += 1;
-			else
-				map_x -= 1;
-			ray_x_col += delta_x;
-			if (all_data->map[map_y][map_x] == '1')
+			if (all_data->map[map_y][map_x] != '1')
 			{
 				if (x_ray_direction > 0)
-					all_data->rays->end_x = map_x;
+					map_x += 1;
 				else
-					all_data->rays->end_x = map_x + 1;
-				all_data->rays->end_y = all_data->player->y
-					+ ((all_data->rays->end_x - all_data->player->x)
-						/ x_ray_direction) * y_ray_direction;
-				break ;
+					map_x -= 1;
+				ray_distance_x += delta_x;
 			}
 		}
 		else
 		{
-			if (y_ray_direction > 0)
-				map_y += 1;
-			else
-				map_y -= 1;
-			ray_y_col += delta_y;
-			if (all_data->map[map_y][map_x] == '1')
+			distance_to_wall = ray_distance_y;
+			if (all_data->map[map_y][map_x] != '1')
 			{
 				if (y_ray_direction > 0)
-					all_data->rays->end_y = map_y;
+					map_y += 1;
 				else
-					all_data->rays->end_y = map_y + 1;
-				all_data->rays->end_x = all_data->player->x
-					+ ((all_data->rays->end_y - all_data->player->y)
-						/ y_ray_direction) * x_ray_direction;
-				break ;
+					map_y -= 1;
+				ray_distance_y += delta_y;
 			}
+
 		}
 	}
+	all_data->rays->end_y = all_data->player->y + distance_to_wall * y_ray_direction;
+	all_data->rays->end_x = all_data->player->x + distance_to_wall * x_ray_direction;
 	draw_map(all_data->map, all_data->image);
 	draw_ray(all_data->rays, all_data->image);
 	return ;
