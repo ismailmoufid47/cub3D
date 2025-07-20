@@ -44,6 +44,7 @@ char	**sorted_files(char ***textures_and_colors)
 	free_splits(textures_and_colors);
 	return (sorted_files);
 }
+
 bool	check_textures(char **textures_and_colors, t_all_data *all_data)
 {
 	all_data->textures[NO] = mlx_load_png(textures_and_colors[NO]);
@@ -106,8 +107,8 @@ void	get_colors(t_all_data *all_data)
 		ft_free_split(floor);
 		pre_map_error(all_data->textures_and_colors);
 	}
-	all_data->C_color = (255) + (ft_atoi(ceil[0]) << 24) + (ft_atoi(ceil[1]) << 16) + (ft_atoi(ceil[2]) << 8);
-	all_data->F_color = (255) + (ft_atoi(floor[0]) << 24) + (ft_atoi(floor[1]) << 16) + (ft_atoi(floor[2]) << 8);
+	all_data->ceiling_color = (255 << 24) + (ft_atoi(ceil[2]) << 16) + (ft_atoi(ceil[1]) << 8) + ft_atoi(ceil[0]);
+	all_data->floor_color = (255 << 24) + (ft_atoi(floor[2]) << 16) + (ft_atoi(floor[1]) << 8) + ft_atoi(floor[0]);
 	ft_free_split(ceil);
 	ft_free_split(floor);
 }

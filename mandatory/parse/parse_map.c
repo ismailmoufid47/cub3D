@@ -1,7 +1,7 @@
 
 #include "../include/cub3D.h"
 
-bool	is_valid_adjecent(char **map, size_t y, size_t x)
+bool	is_valid_adjecent(char **map, int y, int x)
 {
 	if (x < 0)
 		return (false);
@@ -9,7 +9,7 @@ bool	is_valid_adjecent(char **map, size_t y, size_t x)
 		return (false);
 	else if (map[y] == NULL)
 		return (false);
-	if (ft_strlen(map[y]) <= x || map[y][x] == ' ')
+	if (ft_strlen(map[y]) <= (unsigned)x || map[y][x] == ' ')
 		return (false);
 	return (true);
 }

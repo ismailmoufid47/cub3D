@@ -165,13 +165,13 @@ void	cast_rays(t_all_data *all_data)
 
 	angle = all_data->player->direction - ((FOV * PI / 180) / 2);
 	i = 0;
-	while (i < N_RAYS)
+	while (i < WIDTH)
 	{
-		angle += ((FOV * PI / 180) / N_RAYS);
+		angle += ((FOV * PI / 180) / WIDTH);
 		ray_casting(all_data, &all_data->rays[i], angle);
 		i++;
 	}
 	i = 0;
-	while (i < N_RAYS)
+	while (i < WIDTH)
 		i++;
 }

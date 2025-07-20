@@ -15,8 +15,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define FOV 90
-# define N_RAYS 192
-# define WALL_HEIGHT 50
+# define WALL_HEIGHT 0.5
 # define STEP 0.05
 # define PI 3.1415926
 
@@ -46,8 +45,8 @@ typedef struct s_all_data
 	t_mlx_texture	*textures[4];
 	t_player		*player;
 	t_ray			*rays;
-	int				F_color;
-	int				C_color;
+	int				ceiling_color;
+	int				floor_color;
 }					t_all_data;
 
 typedef enum e_text_col
