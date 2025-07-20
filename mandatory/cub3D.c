@@ -1,12 +1,10 @@
 #include "include/cub3D.h"
 
-t_player	*init_player(char **map)
+void	init_player(t_player	*player, char **map)
 {
-	t_player	*player;
 	int			y;
 	int			x;
 
-	player = malloc(sizeof(t_player));
 	y = 0;
 	while (map[y])
 	{
@@ -20,14 +18,13 @@ t_player	*init_player(char **map)
 	player->y = y + 0.5;
 	player->x = x + 0.5;
 	if (map[y][x] == 'N')
-		player->direction = 3 * PI / 2;
+		player->direction = 3 * M_PI / 2;
 	if (map[y][x] == 'S')
-		player->direction = PI / 2;
+		player->direction = M_PI / 2;
 	if (map[y][x] == 'W')
-		player->direction = PI;
+		player->direction = M_PI;
 	if (map[y][x] == 'E')
 		player->direction = 0;
-	return (player);
 }
 
 t_all_data	*init_all_data(void)
@@ -42,52 +39,59 @@ t_all_data	*init_all_data(void)
 	all_data->textures_and_colors = get_textures_and_colors(fd, all_data);
 	get_colors(all_data);
 	all_data->map = get_map(fd);
-	all_data->player = init_player(all_data->map);
+	all_data->player = malloc(sizeof(t_all_data));
+	init_player(all_data->player, all_data->map);
 	all_data->rays = malloc(sizeof(t_ray) * WIDTH);
 	return (all_data);
 }
 
-bool	move(float new_y, float new_x, t_all_data *all_data)
+float	handle_input(t_all_data *all_data, t_keys key)
 {
-	if (all_data->map[(int)new_y][(int)new_x] == '1')
-		return (false);
-	all_data->player->x = new_x;
-	all_data->player->y = new_y;
-	return (true);
+	if (key == MLX_KEY_W)
+		return (all_data->player->direction);
+	if (key == MLX_KEY_S)
+		return (all_data->player->direction + M_PI);
+	if (key == MLX_KEY_A)
+		return (all_data->player->direction + M_PI * -90 / 180);
+	if (key == MLX_KEY_D)
+		return (all_data->player->direction + M_PI * 90 / 180);
+	if (key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
+	{
+		if (key == MLX_KEY_LEFT)
+			all_data->player->direction -= ROTATION_SPEED;
+		else if (key == MLX_KEY_RIGHT)
+			all_data->player->direction += ROTATION_SPEED;
+		return (-2);
+	}
+	return (-1);
 }
 
-void    key_hook(t_mlx_key_data d, void *all_dat)
+void	key_hook(t_mlx_key_data d, void *all_dat)
 {
 	t_all_data	*all_data;
 	float		move_direction;
 
 	all_data = (t_all_data *)all_dat;
+	if (all_data->player->direction < 0)
+		all_data->player->direction += 2 * M_PI;
+	if (all_data->player->direction >= 2 * M_PI)
+		all_data->player->direction -= 2 * M_PI;
 	if (d.key == MLX_KEY_ESCAPE)
 		mlx_close_window(all_data->mlx);
-	move_direction = -1;
-	if (d.key == MLX_KEY_W)
-		move_direction = all_data->player->direction;
-	if (d.key == MLX_KEY_S)
-		move_direction = all_data->player->direction + PI;
-	if (d.key == MLX_KEY_A)
-		move_direction = all_data->player->direction + PI * 270 / 180;
-	if (d.key == MLX_KEY_D)
-		move_direction = all_data->player->direction + PI * 90 / 180;
-	if (d.key == MLX_KEY_LEFT)
-		all_data->player->direction -= STEP;
-	if (d.key == MLX_KEY_RIGHT)
-		all_data->player->direction += STEP;
-	if (all_data->player->direction < 0)
-		all_data->player->direction += 2 * PI;
-	if (all_data->player->direction >= 2 * PI)
-		all_data->player->direction -= 2 * PI;
-	if (move_direction != -1 && !move(
-			all_data->player->y + sin(move_direction) * STEP,
-			all_data->player->x + cos(move_direction) * STEP,
-			all_data))
+	move_direction = handle_input(all_data, d.key);
+	if (move_direction == -1
+		|| all_data->map
+		[(int)(all_data->player->y + sin(move_direction) * MOVEMENT_SPEED)]
+		[(int)(all_data->player->x + cos(move_direction) * MOVEMENT_SPEED)]
+		== '1')
 		return ;
+	if (move_direction != -2)
+	{
+		all_data->player->y += sin(move_direction) * MOVEMENT_SPEED;
+		all_data->player->x += cos(move_direction) * MOVEMENT_SPEED;
+	}
 	cast_rays(all_data);
-	ft_cub3D(all_data);
+	ft_cub3d(all_data);
 }
 
 int	main(void)
@@ -98,6 +102,6 @@ int	main(void)
 	mlx_image_to_window(all_data->mlx, all_data->image, 0, 0);
 	mlx_key_hook(all_data->mlx, key_hook, (void *)all_data);
 	cast_rays(all_data);
-	ft_cub3D(all_data);
+	ft_cub3d(all_data);
 	mlx_loop(all_data->mlx);
 }

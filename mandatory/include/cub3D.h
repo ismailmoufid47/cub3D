@@ -15,10 +15,16 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define FOV 90
-# define WALL_HEIGHT 0.5
-# define STEP 0.05
-# define PI 3.1415926
+# define WALL_HEIGHT 1
+# define MOVEMENT_SPEED 0.08
+# define ROTATION_SPEED 0.1
 
+
+typedef enum e_hit_type
+{
+	HORIZONTAL,
+	VERTICAL,
+}					t_hit_type;
 typedef struct s_player
 {
 	float			y;
@@ -33,6 +39,7 @@ typedef struct s_ray
 	float			end_x;
 	float			end_y;
 	float			angle;
+	t_hit_type		hit_type;
 }					t_ray;
 
 typedef struct s_all_data
@@ -51,12 +58,12 @@ typedef struct s_all_data
 
 typedef enum e_text_col
 {
-	NO,
-	SO,
-	WE,
-	EA,
-	F,
-	C,
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
+	FLOOR,
+	CEILING,
 	INVALID
 }					t_text_col;
 
@@ -75,7 +82,7 @@ char				**get_map(int fd);
 void				cast_rays(t_all_data *all_data);
 
 // Render Map:
-void				ft_cub3D(t_all_data *all_data);
+void				ft_cub3d(t_all_data *all_data);
 
 // Utils:
 

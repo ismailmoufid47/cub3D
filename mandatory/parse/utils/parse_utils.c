@@ -42,16 +42,16 @@ char	**get_six_lines(int fd)
 t_text_col	get_text_value(char *s)
 {
 	if (ft_strcmp(s, "NO") == 0)
-		return (NO);
+		return (NORTH);
 	if (ft_strcmp(s, "SO") == 0)
-		return (SO);
+		return (SOUTH);
 	if (ft_strcmp(s, "WE") == 0)
-		return (WE);
+		return (WEST);
 	if (ft_strcmp(s, "EA") == 0)
-		return (EA);
+		return (EAST);
 	if (ft_strcmp(s, "F") == 0)
-		return (F);
+		return (FLOOR);
 	if (ft_strcmp(s, "C") == 0)
-		return (C);
+		return (CEILING);
 	return (INVALID);
 }

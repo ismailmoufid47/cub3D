@@ -47,17 +47,17 @@ char	**sorted_files(char ***textures_and_colors)
 
 bool	check_textures(char **textures_and_colors, t_all_data *all_data)
 {
-	all_data->textures[NO] = mlx_load_png(textures_and_colors[NO]);
-	if (!all_data->textures[NO])
+	all_data->textures[NORTH] = mlx_load_png(textures_and_colors[NORTH]);
+	if (!all_data->textures[NORTH])
 		return (false);
-	all_data->textures[SO] = mlx_load_png(textures_and_colors[SO]);
-	if (!all_data->textures[SO])
+	all_data->textures[SOUTH] = mlx_load_png(textures_and_colors[SOUTH]);
+	if (!all_data->textures[SOUTH])
 		return (false);
-	all_data->textures[WE] = mlx_load_png(textures_and_colors[WE]);
-	if (!all_data->textures[WE])
+	all_data->textures[WEST] = mlx_load_png(textures_and_colors[WEST]);
+	if (!all_data->textures[WEST])
 		return (false);
-	all_data->textures[EA] = mlx_load_png(textures_and_colors[EA]);
-	if (!all_data->textures[EA])
+	all_data->textures[EAST] = mlx_load_png(textures_and_colors[EAST]);
+	if (!all_data->textures[EAST])
 		return (false);
 	return (true);
 }
@@ -92,8 +92,8 @@ void	get_colors(t_all_data *all_data)
 	char	**ceil;
 	char	**floor;
 
-	ceil = ft_split(all_data->textures_and_colors[C], ',');
-	floor = ft_split(all_data->textures_and_colors[F], ',');
+	ceil = ft_split(all_data->textures_and_colors[CEILING], ',');
+	floor = ft_split(all_data->textures_and_colors[FLOOR], ',');
 	if ((!ceil || (!ceil[0] || ft_atoi(ceil[0]) > 255 || ft_atoi(ceil[0]) < 0)
 			|| (!ceil[1] || ft_atoi(ceil[1]) > 255 || ft_atoi(ceil[1]) < 0)
 			|| (!ceil[2] || ft_atoi(ceil[2]) > 255 || ft_atoi(ceil[2]) < 0)

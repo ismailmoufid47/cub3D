@@ -85,26 +85,37 @@ void	draw_map(char **map, t_mlx_image *image)
 	}
 }
 
+void	init_ray(t_ray *ray, t_player *player, float angle)
+{
+	ray->start_x = player->x;
+	ray->start_y = player->y;
+	ray->end_x = 0;
+	ray->end_y = 0;
+	ray->angle = angle;
+	if (ray->angle < 0)
+		ray->angle += 2 * M_PI;
+	if (ray->angle >= 2 * M_PI)
+		ray->angle -= 2 * M_PI;
+}
+
 void	ray_casting(t_all_data *all_data, t_ray *ray, float angle)
 {
-	float x_ray_direction;
-	float y_ray_direction;
-	float delta_x;
-	float delta_y;
-	float ray_distance_x;
-	float ray_distance_y;
-	int map_x;
-	int map_y;
+	float	x_ray_direction;
+	float	y_ray_direction;
+	float	delta_x;
+	float	delta_y;
+	float	ray_distance_x;
+	float	ray_distance_y;
+	int		map_x;
+	int		map_y;
 
+	init_ray(ray, all_data->player, angle);
 	x_ray_direction = cos(angle);
 	y_ray_direction = sin(angle);
 	ray_distance_x = 0;
 	ray_distance_y = 0;
 	map_x = (int)(all_data->player->x);
 	map_y = (int)all_data->player->y;
-	ray->start_x = all_data->player->x;
-	ray->start_y = all_data->player->y;
-	ray->angle = angle;
 	if (x_ray_direction == 0)
 		delta_x = INFINITY;
 	else
@@ -138,6 +149,7 @@ void	ray_casting(t_all_data *all_data, t_ray *ray, float angle)
 				else
 					map_x -= 1;
 				ray_distance_x += delta_x;
+				ray->hit_type = VERTICAL;
 			}
 		}
 		else
@@ -150,6 +162,7 @@ void	ray_casting(t_all_data *all_data, t_ray *ray, float angle)
 				else
 					map_y -= 1;
 				ray_distance_y += delta_y;
+				ray->hit_type = HORIZONTAL;
 			}
 		}
 	}
@@ -163,11 +176,11 @@ void	cast_rays(t_all_data *all_data)
 	float	angle;
 	int		i;
 
-	angle = all_data->player->direction - ((FOV * PI / 180) / 2);
+	angle = all_data->player->direction - ((FOV * M_PI / 180) / 2);
 	i = 0;
 	while (i < WIDTH)
 	{
-		angle += ((FOV * PI / 180) / WIDTH);
+		angle += ((FOV * M_PI / 180) / WIDTH);
 		ray_casting(all_data, &all_data->rays[i], angle);
 		i++;
 	}
