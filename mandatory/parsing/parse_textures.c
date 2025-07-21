@@ -77,38 +77,15 @@ char	**get_textures_and_colors(int fd, t_all_data *all_data)
 	{
 		type = get_text_value(textures_and_colors[i][0]);
 		if (type == INVALID || count[type])
-			textures_and_colors_error(textures_and_colors);
+			return (NULL);
 		count[type]++;
 		i++;
 	}
 	sorted_textures = sorted_files(textures_and_colors);
 	if (check_textures(sorted_textures, all_data) == false)
-		pre_map_error(sorted_textures);
-	return (sorted_textures);
-}
-
-void	get_colors(t_all_data *all_data)
-{
-	char	**ceil;
-	char	**floor;
-
-	ceil = ft_split(all_data->textures_and_colors[CEILING], ',');
-	floor = ft_split(all_data->textures_and_colors[FLOOR], ',');
-	if ((!ceil || (!ceil[0] || ft_atoi(ceil[0]) > 255 || ft_atoi(ceil[0]) < 0)
-			|| (!ceil[1] || ft_atoi(ceil[1]) > 255 || ft_atoi(ceil[1]) < 0)
-			|| (!ceil[2] || ft_atoi(ceil[2]) > 255 || ft_atoi(ceil[2]) < 0)
-			|| ceil[3]) || ((!floor[0] || ft_atoi(floor[0]) > 255
-				|| ft_atoi(floor[0]) < 0) || (!floor[1]
-				|| ft_atoi(floor[1]) > 255 || ft_atoi(floor[1]) < 0)
-			|| (!floor[2] || ft_atoi(floor[2]) > 255 || ft_atoi(floor[2]) < 0)
-			|| floor[3]))
 	{
-		ft_free_split(ceil);
-		ft_free_split(floor);
-		pre_map_error(all_data->textures_and_colors);
+		ft_free_split(sorted_textures);
+		return (NULL);
 	}
-	all_data->ceiling_color = (255 << 24) + (ft_atoi(ceil[2]) << 16) + (ft_atoi(ceil[1]) << 8) + ft_atoi(ceil[0]);
-	all_data->floor_color = (255 << 24) + (ft_atoi(floor[2]) << 16) + (ft_atoi(floor[1]) << 8) + ft_atoi(floor[0]);
-	ft_free_split(ceil);
-	ft_free_split(floor);
+	return (sorted_textures);
 }

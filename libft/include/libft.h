@@ -6,7 +6,7 @@
 /*   By: isel-mou <isel-mou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:36 by isel-mou          #+#    #+#             */
-/*   Updated: 2025/07/16 13:08:21 by isel-mou         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:56:07 by isel-mou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ size_t	ft_strlen(const char *str);
 void	*ft_memset(void *s, int c, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
+void	*ft_recalloc(void *ptr, size_t old_size, size_t new_size);
 int		ft_isprint(int c);
 int		ft_isspace(int c);
 int		ft_isdigit(int c);

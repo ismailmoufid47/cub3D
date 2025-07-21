@@ -27,18 +27,18 @@ typedef enum e_hit_type
 }					t_hit_type;
 typedef struct s_player
 {
-	float			y;
-	float			x;
-	float			direction;
+	double			y;
+	double			x;
+	double			direction;
 }					t_player;
 
 typedef struct s_ray
 {
-	float			start_y;
-	float			start_x;
-	float			end_x;
-	float			end_y;
-	float			angle;
+	double			start_y;
+	double			start_x;
+	double			end_x;
+	double			end_y;
+	double			angle;
 	t_hit_type		hit_type;
 }					t_ray;
 
@@ -48,7 +48,7 @@ typedef struct s_all_data
 	char			***colors;
 	char			**map;
 	t_mlx			*mlx;
-	t_mlx_image		*image;
+	uint32_t		*window_pixels;
 	t_mlx_texture	*textures[4];
 	t_player		*player;
 	t_ray			*rays;
@@ -67,37 +67,50 @@ typedef enum e_text_col
 	INVALID
 }					t_text_col;
 
-// Parse:
+typedef struct s_wall_render_params
+{
+	int		start_y;
+	int		end_y;
+	double	distance;
+	int		tex_x;
+	int		texture_width;
+	int		texture_height;
+}	t_wall_render_params;
 
-int					open_cub_file(char *filename);
+// Parse:
+t_all_data		*init_all_data(char *filename);
 
 // Parse Textures:
-char				**get_textures_and_colors(int fd, t_all_data *all_data);
-void				get_colors(t_all_data *all_data);
-
+char			**get_textures_and_colors(int fd, t_all_data *all_data);
 // Parse Map:
-char				**get_map(int fd);
+char			**get_map(int fd);
+
 
 // Cast Rays:
-void				cast_rays(t_all_data *all_data);
+void			cast_rays(t_all_data *all_data);
 
-// Render Map:
-void				ft_cub3d(t_all_data *all_data);
+// Render:
+void			ft_cub3d(t_all_data *all_data);
 
 // Utils:
 
-// Parse utils:
-char				**get_six_lines(int fd);
-char				*get_next_non_empty_line(int fd);
-t_text_col			get_text_value(char *s);
+// Parsing utils:
+char			**get_six_lines(int fd);
+char			*get_next_non_empty_line(int fd);
+t_text_col		get_text_value(char *s);
+
+// Rendering utils:
+int				get_wall_type(t_ray *ray);
+double			calculate_hit_offset(t_ray *ray, int wall_type);
+void			calculate_wall_bounds(double dis, int *start_y, int *end_y);
+int				get_texture_x(double hit_offset, t_mlx_texture *texture);
 
 // Errors:
 
 // Textures Error:
-void				textures_and_colors_error(char ***textures_and_colors);
+void			pre_textures_and_colors_error(char ***textures_and_colors);
+void			post_textures_and_colors_error(char **textures_and_colors);
 
-// map Error:
-void				pre_map_error(char **map);
 
-void	draw_map(char **map, t_mlx_image *image); // to remove in madatory
+void			draw_map(char **map, t_mlx_image *image); // to remove in madatory
 #endif

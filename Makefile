@@ -20,14 +20,14 @@ MLX = MLX42/build/libmlx42.a
 LIBFT = libft/libft.a 
 
 SRC = mandatory/cub3D.c \
-      mandatory/parse/parse.c \
-	  mandatory/parse/parse_map.c \
-	  mandatory/parse/parse_textures.c \
-	  mandatory/map_rendering/map_rendering.c \
-	  mandatory/parse/utils/parse_utils.c \
-	  mandatory/free_ressources/parse/parse_map.c \
-	  mandatory/ray_casting/ray_casting.c 
-	  
+      mandatory/parsing/parsing.c \
+	  mandatory/parsing/parse_map.c \
+	  mandatory/parsing/parse_textures.c \
+	  mandatory/ray_casting/ray_casting.c \
+	  mandatory/rendering/rendering.c \
+	  mandatory/rendering/utils/rendering.c \
+	  mandatory/parsing/utils/parse_utils.c \
+	  mandatory/free_ressources/parsing.c
 
 #SRC_BONUS = 
 

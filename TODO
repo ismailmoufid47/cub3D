@@ -1,3 +1,3 @@
 // directory/.cub
 // remove draw ray
-// add is vertical or is horizontal hit to ray struct
+// fix map not fully navigable
