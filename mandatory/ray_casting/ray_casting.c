@@ -1,89 +1,89 @@
 #include "../include/cub3D.h"
 
-void	draw_ray(t_ray *rays, t_mlx_image *image)
-{
-	int x0, y0, x1, y1;
-	int dx, dy;
-	int sx, sy;
-	int err, e2;
-	x0 = rays->start_x * TILE;
-	y0 = rays->start_y * TILE;
-	x1 = rays->end_x * TILE;
-	y1 = rays->end_y * TILE;
-	dx = abs(x1 - x0);
-	dy = abs(y1 - y0);
-	sx = (x0 < x1) ? 1 : -1;
-	sy = (y0 < y1) ? 1 : -1;
-	err = dx - dy;
-	while (1)
-	{
-		mlx_put_pixel(image, x0, y0, 0xFF);
-		if (x0 == x1 && y0 == y1)
-			break ;
-		e2 = 2 * err;
-		if (e2 > -dy)
-		{
-			err -= dy;
-			x0 += sx;
-		}
-		if (e2 < dx)
-		{
-			err += dx;
-			y0 += sy;
-		}
-	}
-}
+// void	draw_ray(t_ray *rays, t_mlx_image *image)
+// {
+// 	int x0, y0, x1, y1;
+// 	int dx, dy;
+// 	int sx, sy;
+// 	int err, e2;
+// 	x0 = rays->start_x * TILE;
+// 	y0 = rays->start_y * TILE;
+// 	x1 = rays->end_x * TILE;
+// 	y1 = rays->end_y * TILE;
+// 	dx = abs(x1 - x0);
+// 	dy = abs(y1 - y0);
+// 	sx = (x0 < x1) ? 1 : -1;
+// 	sy = (y0 < y1) ? 1 : -1;
+// 	err = dx - dy;
+// 	while (1)
+// 	{
+// 		mlx_put_pixel(image, x0, y0, 0xFF);
+// 		if (x0 == x1 && y0 == y1)
+// 			break ;
+// 		e2 = 2 * err;
+// 		if (e2 > -dy)
+// 		{
+// 			err -= dy;
+// 			x0 += sx;
+// 		}
+// 		if (e2 < dx)
+// 		{
+// 			err += dx;
+// 			y0 += sy;
+// 		}
+// 	}
+// }
 
-void	draw_map(char **map, t_mlx_image *image)
-{
-	int	y;
-	int	x;
-	int	y2;
-	int	x2;
+// void	draw_map(char **map, t_mlx_image *image)
+// {
+// 	int	y;
+// 	int	x;
+// 	int	y2;
+// 	int	x2;
 
-	y = 0;
-	x = 0;
-	y2 = 0;
-	x2 = 0;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] == '1')
-			{
-				y2 = 0;
-				while (y2 < TILE)
-				{
-					x2 = 0;
-					while (x2 < TILE)
-					{
-						mlx_put_pixel(image, x * TILE + x2, y * TILE + y2,
-							0xFFFFFF);
-						x2++;
-					}
-					y2++;
-				}
-			}
-			else
-			{
-				y2 = 0;
-				while (y2 < TILE)
-				{
-					x2 = 0;
-					while (x2 < TILE)
-					{
-						mlx_put_pixel(image, x * TILE + x2, y * TILE + y2, 0x0);
-						x2++;
-					}
-					y2++;
-				}
-			}
-			x++;
-		}
-		y++;
-	}
-}
+// 	y = 0;
+// 	x = 0;
+// 	y2 = 0;
+// 	x2 = 0;
+// 	while (map[y])
+// 	{
+// 		x = 0;
+// 		while (map[y][x])
+// 		{
+// 			if (map[y][x] == '1')
+// 			{
+// 				y2 = 0;
+// 				while (y2 < TILE)
+// 				{
+// 					x2 = 0;
+// 					while (x2 < TILE)
+// 					{
+// 						mlx_put_pixel(image, x * TILE + x2, y * TILE + y2,
+// 							0xFFFFFF);
+// 						x2++;
+// 					}
+// 					y2++;
+// 				}
+// 			}
+// 			else
+// 			{
+// 				y2 = 0;
+// 				while (y2 < TILE)
+// 				{
+// 					x2 = 0;
+// 					while (x2 < TILE)
+// 					{
+// 						mlx_put_pixel(image, x * TILE + x2, y * TILE + y2, 0x0);
+// 						x2++;
+// 					}
+// 					y2++;
+// 				}
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
 void	init_ray(t_ray *ray, t_player *player, double angle)
 {
@@ -106,6 +106,7 @@ void	ray_casting(t_all_data *all_data, t_ray *ray, double angle)
 	double	delta_y;
 	double	ray_distance_x;
 	double	ray_distance_y;
+	double	distance_to_wall;
 	int		map_x;
 	int		map_y;
 
@@ -136,7 +137,7 @@ void	ray_casting(t_all_data *all_data, t_ray *ray, double angle)
 		ray_distance_y = delta_y * (all_data->player->y - map_y);
 	else
 		ray_distance_y = INFINITY;
-	double distance_to_wall = 0;
+	distance_to_wall = 0;
 	while (all_data->map[map_y][map_x] != '1')
 	{
 		distance_to_wall = ray_distance_x;
@@ -171,20 +172,19 @@ void	ray_casting(t_all_data *all_data, t_ray *ray, double angle)
 	return ;
 }
 
-void	cast_rays(t_all_data *all_data)
+void	cast_rays(t_all_data *all)
 {
-	double	angle;
-	int		i;
+	double	ray_angle;
+	int		screen_x_offset_from_center;
+	int		screen_x;
 
-	angle = all_data->player->direction - ((FOV * M_PI / 180) / 2);
-	i = 0;
-	while (i < WIDTH)
+	screen_x = 0;
+	while (screen_x < WIDTH)
 	{
-		angle += ((FOV * M_PI / 180) / WIDTH);
-		ray_casting(all_data, &all_data->rays[i], angle);
-		i++;
+		screen_x_offset_from_center = screen_x - (WIDTH / 2);
+		ray_angle = all->player->direction
+			+ atan2(screen_x_offset_from_center, (WIDTH / 2));
+		ray_casting(all, &all->rays[screen_x], ray_angle);
+		screen_x++;
 	}
-	i = 0;
-	while (i < WIDTH)
-		i++;
 }

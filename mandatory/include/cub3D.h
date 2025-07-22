@@ -11,14 +11,11 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define TILE 100
 # define WIDTH 1920
 # define HEIGHT 1080
-# define FOV 90
-# define WALL_HEIGHT 1
+# define WALL_HEIGHT 0.5
 # define MOVEMENT_SPEED 0.08
 # define ROTATION_SPEED 0.1
-
 
 typedef enum e_hit_type
 {
