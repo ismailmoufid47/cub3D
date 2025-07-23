@@ -6,7 +6,8 @@ int	open_cub_file(char *filename)
 	char	*found;
 
 	found = ft_strstr(filename, ".cub");
-	if (!found || *(found + 4) || found == filename)
+	if (!found || *(found + 4) || found == filename
+		|| ft_strrchr(filename, '/') + 1 == found)
 	{
 		ft_putendl_fd("Error", 2);
 		exit(EXIT_FAILURE);
