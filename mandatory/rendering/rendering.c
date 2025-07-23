@@ -1,4 +1,3 @@
-
 #include "../include/cub3D.h"
 
 void	draw_background(t_all_data *all_data)

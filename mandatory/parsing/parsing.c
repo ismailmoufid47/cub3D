@@ -1,4 +1,3 @@
-
 #include "../include/cub3D.h"
 
 int	open_cub_file(char *filename)

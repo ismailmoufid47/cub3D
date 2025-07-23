@@ -1,4 +1,3 @@
-
 #include "../include/cub3D.h"
 
 bool	is_valid_adjecent(char **map, int y, int x)

@@ -1,4 +1,3 @@
-
 #include "../../include/cub3D.h"
 
 char	*get_next_non_empty_line(int fd)

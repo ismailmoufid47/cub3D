@@ -24,6 +24,7 @@ SRC = mandatory/cub3D.c \
 	  mandatory/parsing/parse_map.c \
 	  mandatory/parsing/parse_textures.c \
 	  mandatory/ray_casting/ray_casting.c \
+	  mandatory/ray_casting/utils/ray_casting.c \
 	  mandatory/rendering/rendering.c \
 	  mandatory/rendering/utils/rendering.c \
 	  mandatory/parsing/utils/parse_utils.c \

@@ -1,4 +1,3 @@
-
 #include "../include/cub3D.h"
 
 char	***validate_textures_and_colors(int fd)

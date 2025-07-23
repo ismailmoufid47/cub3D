@@ -85,98 +85,79 @@
 // 	}
 // }
 
-void	init_ray(t_ray *ray, t_player *player, double angle)
+void	calculate_initial_distances(t_ray_cast_data *data,
+		t_all_data *all_data)
 {
-	ray->start_x = player->x;
-	ray->start_y = player->y;
-	ray->end_x = 0;
-	ray->end_y = 0;
-	ray->angle = angle;
-	if (ray->angle < 0)
-		ray->angle += 2 * M_PI;
-	if (ray->angle >= 2 * M_PI)
-		ray->angle -= 2 * M_PI;
+	if (data->x_ray_direction > 0)
+		data->ray_distance_x = data->delta_x * ((data->map_x + 1)
+				- all_data->player->x);
+	else if (data->x_ray_direction < 0)
+		data->ray_distance_x = data->delta_x * (all_data->player->x
+				- data->map_x);
+	else
+		data->ray_distance_x = INFINITY;
+	if (data->y_ray_direction > 0)
+		data->ray_distance_y = data->delta_y * ((data->map_y + 1)
+				- all_data->player->y);
+	else if (data->y_ray_direction < 0)
+		data->ray_distance_y = data->delta_y * (all_data->player->y
+				- data->map_y);
+	else
+		data->ray_distance_y = INFINITY;
 }
 
-void	ray_casting(t_all_data *all_data, t_ray *ray, double angle)
+void	step_horizontal(t_ray_cast_data *data, t_all_data *all_data,
+		t_ray *ray)
 {
-	double	x_ray_direction;
-	double	y_ray_direction;
-	double	delta_x;
-	double	delta_y;
-	double	ray_distance_x;
-	double	ray_distance_y;
-	double	distance_to_wall;
-	int		map_x;
-	int		map_y;
-
-	init_ray(ray, all_data->player, angle);
-	x_ray_direction = cos(angle);
-	y_ray_direction = sin(angle);
-	ray_distance_x = 0;
-	ray_distance_y = 0;
-	map_x = (int)(all_data->player->x);
-	map_y = (int)all_data->player->y;
-	if (x_ray_direction == 0)
-		delta_x = INFINITY;
-	else
-		delta_x = fabs(1 / x_ray_direction);
-	if (y_ray_direction == 0)
-		delta_y = INFINITY;
-	else
-		delta_y = fabs(1 / y_ray_direction);
-	if (x_ray_direction > 0)
-		ray_distance_x = delta_x * ((map_x + 1) - all_data->player->x);
-	else if (x_ray_direction < 0)
-		ray_distance_x = delta_x * (all_data->player->x - map_x);
-	else
-		ray_distance_x = INFINITY;
-	if (y_ray_direction > 0)
-		ray_distance_y = delta_y * ((map_y + 1) - all_data->player->y);
-	else if (y_ray_direction < 0)
-		ray_distance_y = delta_y * (all_data->player->y - map_y);
-	else
-		ray_distance_y = INFINITY;
-	distance_to_wall = 0;
-	while (all_data->map[map_y][map_x] != '1')
+	data->distance_to_wall = data->ray_distance_y;
+	if (all_data->map[data->map_y][data->map_x] != '1')
 	{
-		distance_to_wall = ray_distance_x;
-		if (ray_distance_x < ray_distance_y)
-		{
-			if (all_data->map[map_y][map_x] != '1')
-			{
-				if (x_ray_direction > 0)
-					map_x += 1;
-				else
-					map_x -= 1;
-				ray_distance_x += delta_x;
-				ray->hit_type = VERTICAL;
-			}
-		}
+		if (data->y_ray_direction > 0)
+			data->map_y += 1;
 		else
-		{
-			distance_to_wall = ray_distance_y;
-			if (all_data->map[map_y][map_x] != '1')
-			{
-				if (y_ray_direction > 0)
-					map_y += 1;
-				else
-					map_y -= 1;
-				ray_distance_y += delta_y;
-				ray->hit_type = HORIZONTAL;
-			}
-		}
+			data->map_y -= 1;
+		data->ray_distance_y += data->delta_y;
+		ray->hit_type = HORIZONTAL;
 	}
-	ray->end_y = all_data->player->y + distance_to_wall * y_ray_direction;
-	ray->end_x = all_data->player->x + distance_to_wall * x_ray_direction;
-	return ;
+}
+
+void	step_vertical(t_ray_cast_data *data, t_all_data *all_data,
+		t_ray *ray)
+{
+	data->distance_to_wall = data->ray_distance_x;
+	if (all_data->map[data->map_y][data->map_x] != '1')
+	{
+		if (data->x_ray_direction > 0)
+			data->map_x += 1;
+		else
+			data->map_x -= 1;
+		data->ray_distance_x += data->delta_x;
+		ray->hit_type = VERTICAL;
+	}
+}
+
+void	perform_dda(t_ray_cast_data *data, t_all_data *all_data,
+		t_ray *ray)
+{
+	while (all_data->map[data->map_y][data->map_x] != '1')
+	{
+		if (data->ray_distance_x < data->ray_distance_y)
+			step_vertical(data, all_data, ray);
+		else
+			step_horizontal(data, all_data, ray);
+	}
+	ray->end_x = all_data->player->x + data->distance_to_wall
+		* data->x_ray_direction;
+	ray->end_y = all_data->player->y + data->distance_to_wall
+		* data->y_ray_direction;
 }
 
 void	cast_rays(t_all_data *all)
 {
-	double	ray_angle;
-	int		screen_x_offset_from_center;
-	int		screen_x;
+	t_ray_cast_data	data;
+	double			ray_angle;
+	int				screen_x_offset_from_center;
+	int				screen_x;
 
 	screen_x = 0;
 	while (screen_x < WIDTH)
@@ -184,7 +165,11 @@ void	cast_rays(t_all_data *all)
 		screen_x_offset_from_center = screen_x - (WIDTH / 2);
 		ray_angle = all->player->direction
 			+ atan2(screen_x_offset_from_center, (WIDTH / 2));
-		ray_casting(all, &all->rays[screen_x], ray_angle);
+		init_ray(&all->rays[screen_x], all->player, ray_angle);
+		init_ray_cast_data(&data, all, ray_angle);
+		calculate_deltas(&data);
+		calculate_initial_distances(&data, all);
+		perform_dda(&data, all, &all->rays[screen_x]);
 		screen_x++;
 	}
 }

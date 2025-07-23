@@ -1,4 +1,3 @@
-
 #include "../include/cub3D.h"
 
 void	pre_textures_and_colors_error(char ***textures_and_colors)

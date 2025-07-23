@@ -1,4 +1,3 @@
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -11,8 +10,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 960
+# define HEIGHT 540
 # define WALL_HEIGHT 0.5
 # define MOVEMENT_SPEED 0.08
 # define ROTATION_SPEED 0.1
@@ -64,6 +63,19 @@ typedef enum e_text_col
 	INVALID
 }					t_text_col;
 
+typedef struct s_ray_cast_data
+{
+	double	x_ray_direction;
+	double	y_ray_direction;
+	double	delta_x;
+	double	delta_y;
+	double	ray_distance_x;
+	double	ray_distance_y;
+	double	distance_to_wall;
+	int		map_x;
+	int		map_y;
+}	t_ray_cast_data;
+
 typedef struct s_wall_render_params
 {
 	int		start_y;
@@ -82,7 +94,6 @@ char			**get_textures_and_colors(int fd, t_all_data *all_data);
 // Parse Map:
 char			**get_map(int fd);
 
-
 // Cast Rays:
 void			cast_rays(t_all_data *all_data);
 
@@ -96,6 +107,12 @@ char			**get_six_lines(int fd);
 char			*get_next_non_empty_line(int fd);
 t_text_col		get_text_value(char *s);
 
+// Ray casting utils:
+void			init_ray(t_ray *ray, t_player *player, double angle);
+void			init_ray_cast_data(t_ray_cast_data *data, t_all_data *all_data,
+					double angle);
+void			calculate_deltas(t_ray_cast_data *data);
+
 // Rendering utils:
 int				get_wall_type(t_ray *ray);
 double			calculate_hit_offset(t_ray *ray, int wall_type);
@@ -107,7 +124,6 @@ int				get_texture_x(double hit_offset, t_mlx_texture *texture);
 // Textures Error:
 void			pre_textures_and_colors_error(char ***textures_and_colors);
 void			post_textures_and_colors_error(char **textures_and_colors);
-
 
 void			draw_map(char **map, t_mlx_image *image); // to remove in madatory
 #endif

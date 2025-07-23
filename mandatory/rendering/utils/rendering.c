@@ -1,4 +1,3 @@
-
 #include "../../include/cub3D.h"
 
 int	get_wall_type(t_ray *ray)
