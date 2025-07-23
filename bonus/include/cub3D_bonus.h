@@ -1,5 +1,5 @@
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include "MLX42.h"
 # include "libft.h"
@@ -139,5 +139,7 @@ int				get_texture_x(double hit_offset, t_mlx_texture *texture);
 // Textures Error:
 void			pre_textures_and_colors_error(char ***textures_and_colors);
 void			post_textures_and_colors_error(char **textures_and_colors);
+
+void			draw_minimap(char **map, t_mlx_image *image);
 
 #endif

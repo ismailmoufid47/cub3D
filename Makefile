@@ -28,16 +28,37 @@ SRC = mandatory/cub3D.c \
 	  mandatory/rendering/rendering.c \
 	  mandatory/rendering/utils/rendering.c \
 	  mandatory/parsing/utils/parse_utils.c \
+	  mandatory/input_handling/input_handling.c \
+	  mandatory/input_handling/movement_handling.c \
 	  mandatory/free_ressources/parsing.c
 
-#SRC_BONUS = 
+SRC_BONUS = bonus/cub3D_bonus.c \
+      bonus/parsing/parsing_bonus.c \
+	  bonus/parsing/parse_map_bonus.c \
+	  bonus/parsing/parse_textures_bonus.c \
+	  bonus/ray_casting/ray_casting_bonus.c \
+	  bonus/ray_casting/utils/ray_casting_bonus.c \
+	  bonus/rendering/rendering_bonus.c \
+	  bonus/rendering/utils/rendering_bonus.c \
+	  bonus/parsing/utils/parse_utils_bonus.c \
+	  bonus/input_handling/input_handling_bonus.c \
+	  bonus/input_handling/movement_handling_bonus.c \
+	  bonus/free_ressources/parsing_bonus.c
 
 OBJ = $(SRC:%.c=obj/%.o)
-#OBJ_BONUS = $(SRC_BONUS:%.c=obj/%.o)
+OBJ_BONUS = $(SRC_BONUS:%.c=obj/%.o)
 
+$(NAME): .mnmade
 
-$(NAME): $(MLX) $(LIBFT) $(SRC) $(OBJ) mandatory/include/cub3D.h
+.mnmade: $(MLX) $(LIBFT) $(SRC) $(OBJ) mandatory/include/cub3D.h
 	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $(NAME)
+	@touch $@
+	@rm -f .bnmade
+
+.bnmade: $(MLX) $(LIBFT) $(OBJ_BONUS) bonus/include/cub3D_bonus.h
+	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LFLAGS) -o $(NAME)
+	@touch $@
+	@rm -f .mnmade
 
 $(MLX):
 	@mkdir -p MLX42/build
@@ -45,6 +66,7 @@ $(MLX):
 
 $(LIBFT):
 	make -C libft
+	make -C libft clean
 
 obj/%.o: %.c
 	@mkdir -p $(dir $@)
@@ -53,15 +75,14 @@ obj/%.o: %.c
 
 all: $(NAME)
 
-bonus: $(MLX) $(LIBFT) $(OBJ_BONUS) bonus/include/cub3D.h
-	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LFLAGS) -o $(NAME)
+bonus: .bnmade
 
 clean:
 	rm -rf obj
 
 fclean: clean
 	rm -f $(NAME)
-	make -C libft fclean
+	@rm -f .mnmade .bnmade
 
 re: clean all
 
