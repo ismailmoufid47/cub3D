@@ -57,7 +57,7 @@ typedef struct s_all_data
 	t_player		*player;
 	t_input_state	*input_state;
 	t_ray			*rays;
-	t_mlx_texture	*textures[4];
+	t_mlx_texture	*textures[5];
 	int				ceiling_color;
 	int				floor_color;
 }					t_all_data;
@@ -68,6 +68,7 @@ typedef enum e_text_col
 	SOUTH,
 	WEST,
 	EAST,
+	DOOR,
 	FLOOR,
 	CEILING,
 	INVALID
@@ -118,7 +119,7 @@ void			key_press_hook(t_mlx_key_data keydata, void *all_dat);
 // Utils:
 
 // Parsing utils:
-char			**get_six_lines(int fd);
+char			**get_seven_lines(int fd);
 char			*get_next_non_empty_line(int fd);
 t_text_col		get_text_value(char *s);
 

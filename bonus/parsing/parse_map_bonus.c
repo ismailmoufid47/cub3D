@@ -15,7 +15,7 @@ bool	is_valid_adjecent(char **map, int y, int x)
 
 bool	is_valid(char **map, int y, int x)
 {
-	if (!ft_strchr("0NSWE 1", map[y][x]))
+	if (!ft_strchr("0NSWE 1D", map[y][x]))
 		return (false);
 	if (ft_strchr("0NSWE", map[y][x]))
 	{

@@ -15,14 +15,14 @@ char	*get_next_non_empty_line(int fd)
 	return (line);
 }
 
-char	**get_six_lines(int fd)
+char	**get_seven_lines(int fd)
 {
 	int		i;
 	char	**lines;
 
-	lines = ft_calloc(7, sizeof(char *));
+	lines = ft_calloc(8, sizeof(char *));
 	i = 0;
-	while (i < 6)
+	while (i < 7)
 	{
 		lines[i] = get_next_non_empty_line(fd);
 		if (!lines[i])
@@ -48,6 +48,8 @@ t_text_col	get_text_value(char *s)
 		return (WEST);
 	if (ft_strcmp(s, "EA") == 0)
 		return (EAST);
+	if (ft_strcmp(s, "DO") == 0)
+		return (DOOR);
 	if (ft_strcmp(s, "F") == 0)
 		return (FLOOR);
 	if (ft_strcmp(s, "C") == 0)

@@ -6,10 +6,10 @@ char	***validate_textures_and_colors(int fd)
 	char	***textures_and_colors;
 	int		i;
 
-	lines = get_six_lines(fd);
-	textures_and_colors = ft_calloc(7, sizeof(char **));
+	lines = get_seven_lines(fd);
+	textures_and_colors = ft_calloc(8, sizeof(char **));
 	i = 0;
-	while (i < 6)
+	while (i < 7)
 	{
 		textures_and_colors[i] = ft_split(lines[i], ' ');
 		if (!textures_and_colors[i][0] || !textures_and_colors[i][1]
@@ -32,9 +32,9 @@ char	**sorted_files(char ***textures_and_colors)
 	t_text_col	res;
 	int			i;
 
-	sorted_files = ft_calloc(7, sizeof(char *));
+	sorted_files = ft_calloc(8, sizeof(char *));
 	i = 0;
-	while (i < 6)
+	while (i < 7)
 	{
 		res = get_text_value(textures_and_colors[i][0]);
 		sorted_files[res] = ft_strdup(textures_and_colors[i][1]);
@@ -58,21 +58,24 @@ bool	check_textures(char **textures_and_colors, t_all_data *all_data)
 	all_data->textures[EAST] = mlx_load_png(textures_and_colors[EAST]);
 	if (!all_data->textures[EAST])
 		return (false);
+	all_data->textures[DOOR] = mlx_load_png(textures_and_colors[DOOR]);
+	if (!all_data->textures[DOOR])
+		return (false);
 	return (true);
 }
 
 char	**get_textures_and_colors(int fd, t_all_data *all_data)
 {
 	char		***textures_and_colors;
-	t_text_col	count[6];
+	t_text_col	count[8];
 	t_text_col	type;
 	int			i;
 	char		**sorted_textures;
 
 	textures_and_colors = validate_textures_and_colors(fd);
-	ft_memset(count, 0, sizeof(t_text_col) * 6);
+	ft_memset(count, 0, sizeof(t_text_col) * 8);
 	i = 0;
-	while (i < 6)
+	while (i < 7)
 	{
 		type = get_text_value(textures_and_colors[i][0]);
 		if (type == INVALID || count[type])
