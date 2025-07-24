@@ -28,9 +28,9 @@ char	***validate_textures_and_colors(int fd)
 
 char	**sorted_files(char ***textures_and_colors)
 {
-	char		**sorted_files;
+	char			**sorted_files;
 	t_texture_type	res;
-	int			i;
+	int				i;
 
 	sorted_files = ft_calloc(7, sizeof(char *));
 	i = 0;
@@ -63,11 +63,11 @@ bool	check_textures(char **textures_and_colors, t_all_data *all_data)
 
 char	**get_textures_and_colors(int fd, t_all_data *all_data)
 {
-	char		***textures_and_colors;
+	char			***textures_and_colors;
 	t_texture_type	count[6];
 	t_texture_type	type;
-	int			i;
-	char		**sorted_textures;
+	int				i;
+	char			**sorted_textures;
 
 	textures_and_colors = validate_textures_and_colors(fd);
 	ft_memset(count, 0, sizeof(t_texture_type) * 6);

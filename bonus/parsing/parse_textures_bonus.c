@@ -28,9 +28,9 @@ char	***validate_textures_and_colors(int fd)
 
 char	**sorted_files(char ***textures_and_colors)
 {
-	char		**sorted_files;
+	char			**sorted_files;
 	t_texture_type	res;
-	int			i;
+	int				i;
 
 	sorted_files = ft_calloc(8, sizeof(char *));
 	i = 0;

@@ -119,7 +119,7 @@ void			key_press_hook(t_mlx_key_data keydata, void *all_dat);
 // Parsing utils:
 char			**get_six_lines(int fd);
 char			*get_next_non_empty_line(int fd);
-t_texture_type		get_texture_type(char *s);
+t_texture_type	get_texture_type(char *s);
 
 // Ray casting utils:
 void			init_ray(t_ray *ray, t_player *player, double angle);

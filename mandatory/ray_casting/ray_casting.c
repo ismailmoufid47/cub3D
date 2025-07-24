@@ -1,6 +1,5 @@
 #include "../include/cub3D.h"
 
-
 void	calculate_initial_distances(t_ray_cast_data *data,
 		t_all_data *all_data)
 {

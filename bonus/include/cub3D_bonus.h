@@ -154,5 +154,4 @@ void			post_textures_and_colors_error(char **textures_and_colors);
 
 void			free_all_data(t_all_data *all_data);
 
-
 #endif
