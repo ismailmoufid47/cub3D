@@ -18,5 +18,4 @@ int	main(int argc, char **argv)
 	mlx_loop(all_data->mlx);
 	mlx_terminate(all_data->mlx);
 	free_all_data(all_data);
-
 }

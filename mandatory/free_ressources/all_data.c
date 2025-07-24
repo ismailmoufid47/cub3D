@@ -13,4 +13,3 @@ void	free_all_data(t_all_data *all_data)
 	mlx_delete_texture(all_data->textures[EAST]);
 	free(all_data);
 }
-
