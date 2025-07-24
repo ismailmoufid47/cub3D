@@ -15,14 +15,14 @@ char	*get_next_non_empty_line(int fd)
 	return (line);
 }
 
-char	**get_seven_lines(int fd)
+char	**get_twelve_lines(int fd)
 {
 	int		i;
 	char	**lines;
 
-	lines = ft_calloc(8, sizeof(char *));
+	lines = ft_calloc(13, sizeof(char *));
 	i = 0;
-	while (i < 7)
+	while (i < 12)
 	{
 		lines[i] = get_next_non_empty_line(fd);
 		if (!lines[i])
@@ -50,6 +50,16 @@ t_texture_type	get_texture_type(char *s)
 		return (EAST);
 	if (ft_strcmp(s, "DO") == 0)
 		return (DOOR);
+	if (ft_strcmp(s, "H1") == 0)
+		return (HANDS1);
+	if (ft_strcmp(s, "H2") == 0)
+		return (HANDS2);
+	if (ft_strcmp(s, "H3") == 0)
+		return (HANDS3);
+	if (ft_strcmp(s, "H4") == 0)
+		return (HANDS4);
+	if (ft_strcmp(s, "H5") == 0)
+		return (HANDS5);
 	if (ft_strcmp(s, "F") == 0)
 		return (FLOOR);
 	if (ft_strcmp(s, "C") == 0)
