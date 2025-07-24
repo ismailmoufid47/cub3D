@@ -140,4 +140,7 @@ int				get_texture_x(double hit_offset, t_mlx_texture *texture);
 void			pre_textures_and_colors_error(char ***textures_and_colors);
 void			post_textures_and_colors_error(char **textures_and_colors);
 
+// Free Resources:
+void			free_all_data(t_all_data *all_data);
+
 #endif

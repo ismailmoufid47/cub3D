@@ -1,7 +1,7 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include
 
 OS = $(shell uname -s)
 
@@ -30,6 +30,7 @@ SRC = mandatory/cub3D.c \
 	  mandatory/parsing/utils/parse_utils.c \
 	  mandatory/input_handling/input_handling.c \
 	  mandatory/input_handling/movement_handling.c \
+	  mandatory/free_ressources/all_data.c \
 	  mandatory/free_ressources/parsing.c
 
 SRC_BONUS = bonus/cub3D_bonus.c \
@@ -43,6 +44,7 @@ SRC_BONUS = bonus/cub3D_bonus.c \
 	  bonus/parsing/utils/parse_utils_bonus.c \
 	  bonus/input_handling/input_handling_bonus.c \
 	  bonus/input_handling/movement_handling_bonus.c \
+	  bonus/free_ressources/all_data_bonus.c \
 	  bonus/free_ressources/parsing_bonus.c
 
 OBJ = $(SRC:%.c=obj/%.o)

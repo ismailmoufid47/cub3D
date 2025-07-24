@@ -16,4 +16,7 @@ int	main(int argc, char **argv)
 	cast_rays(all_data);
 	render(all_data);
 	mlx_loop(all_data->mlx);
+	mlx_terminate(all_data->mlx);
+	free_all_data(all_data);
+
 }

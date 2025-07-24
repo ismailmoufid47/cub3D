@@ -76,15 +76,15 @@ char	**get_textures_and_colors(int fd, t_all_data *all_data)
 	{
 		type = get_text_value(textures_and_colors[i][0]);
 		if (type == INVALID || count[type])
+		{
+			free_splits(textures_and_colors);
 			return (NULL);
+		}
 		count[type]++;
 		i++;
 	}
 	sorted_textures = sorted_files(textures_and_colors);
 	if (check_textures(sorted_textures, all_data) == false)
-	{
-		ft_free_split(sorted_textures);
-		return (NULL);
-	}
+		return (ft_free_split(sorted_textures), NULL);
 	return (sorted_textures);
 }
