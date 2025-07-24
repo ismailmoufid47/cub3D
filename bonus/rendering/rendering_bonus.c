@@ -1,26 +1,5 @@
 #include "../include/cub3D_bonus.h"
 
-void	draw_background(t_all_data *all_data)
-{
-	uint32_t	*screen_pixels;
-	int			half_pixels;
-	int			i;
-
-	screen_pixels = (uint32_t *)all_data->window_pixels;
-	half_pixels = (WIDTH * HEIGHT) / 2;
-	i = 0;
-	while (i < half_pixels)
-	{
-		screen_pixels[i] = all_data->ceiling_color;
-		i++;
-	}
-	while (i < WIDTH * HEIGHT)
-	{
-		screen_pixels[i] = all_data->floor_color;
-		i++;
-	}
-}
-
 void	render_wall_column(uint32_t *screen_pixels,
 		uint32_t *tex_pixels, int x, t_wall_render_params params)
 {
@@ -89,8 +68,37 @@ void	draw_walls(t_all_data *all_data)
 	}
 }
 
+void draw_hands(t_all_data *all_data)
+{
+	static int		frame_counter = 0;
+	static int		hand_frame = 0;
+	static int		animation_speed = 8;
+	t_mlx_image		*mlx_img;
+
+	if (frame_counter % animation_speed == 0)
+	{
+		if (all_data->last_hands)
+		{
+			mlx_delete_image(all_data->mlx, all_data->last_hands);
+			all_data->last_hands = NULL;
+		}
+		mlx_img = mlx_texture_to_image(all_data->mlx, 
+				all_data->textures[HANDS1 + hand_frame]);
+		if (mlx_img)
+		{
+			mlx_image_to_window(all_data->mlx, mlx_img, 0, 0);
+			all_data->last_hands = mlx_img;
+		}
+		hand_frame = (hand_frame + 1) % 4;
+	}
+	frame_counter++;
+	if (frame_counter >= animation_speed * 5 * 1000)
+		frame_counter = 0;
+}
+
 void	render(t_all_data *all_data)
 {
 	draw_background(all_data);
 	draw_walls(all_data);
+	draw_hands(all_data);
 }

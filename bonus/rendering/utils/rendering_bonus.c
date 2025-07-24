@@ -1,5 +1,26 @@
 #include "../../include/cub3D_bonus.h"
 
+void	draw_background(t_all_data *all_data)
+{
+	uint32_t	*screen_pixels;
+	int			half_pixels;
+	int			i;
+
+	screen_pixels = (uint32_t *)all_data->window_pixels;
+	half_pixels = (WIDTH * HEIGHT) / 2;
+	i = 0;
+	while (i < half_pixels)
+	{
+		screen_pixels[i] = all_data->ceiling_color;
+		i++;
+	}
+	while (i < WIDTH * HEIGHT)
+	{
+		screen_pixels[i] = all_data->floor_color;
+		i++;
+	}
+}
+
 int	get_wall_type(t_ray *ray)
 {
 	if (ray->hit_type == VERTICAL)

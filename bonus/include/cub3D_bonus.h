@@ -63,7 +63,8 @@ typedef struct s_all_data
 	t_player		*player;
 	t_input_state	*input_state;
 	t_ray			*rays;
-	t_mlx_texture	*textures[10];
+	t_mlx_texture	*textures[9];
+	t_mlx_image		*last_hands;
 	int				ceiling_color;
 	int				floor_color;
 }					t_all_data;
@@ -141,6 +142,7 @@ void			init_ray_cast_data(t_ray_cast_data *data, t_all_data *all_data,
 void			calculate_deltas(t_ray_cast_data *data);
 
 // Rendering utils:
+void			draw_background(t_all_data *all_data);
 int				get_wall_type(t_ray *ray);
 double			calculate_hit_offset(t_ray *ray, int wall_type);
 void			calculate_wall_bounds(double dis, int *start_y, int *end_y);

@@ -20,9 +20,9 @@ char	**get_twelve_lines(int fd)
 	int		i;
 	char	**lines;
 
-	lines = ft_calloc(13, sizeof(char *));
+	lines = ft_calloc(12, sizeof(char *));
 	i = 0;
-	while (i < 12)
+	while (i < 11)
 	{
 		lines[i] = get_next_non_empty_line(fd);
 		if (!lines[i])
@@ -58,8 +58,6 @@ t_texture_type	get_texture_type(char *s)
 		return (HANDS3);
 	if (ft_strcmp(s, "H4") == 0)
 		return (HANDS4);
-	if (ft_strcmp(s, "H5") == 0)
-		return (HANDS5);
 	if (ft_strcmp(s, "F") == 0)
 		return (FLOOR);
 	if (ft_strcmp(s, "C") == 0)
