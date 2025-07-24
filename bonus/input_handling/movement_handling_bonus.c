@@ -89,6 +89,7 @@ void	update_player_movement(void *all_dat)
 	all_data = (t_all_data *)all_dat;
 	movement_occurred = 0;
 	rotation_occurred = 0;
+	toggle_doors_in_proximity(all_data);
 	handle_rotation(all_data, &rotation_occurred);
 	handle_player_movement(all_data, &movement_occurred);
 	if (movement_occurred || rotation_occurred)

@@ -55,8 +55,12 @@ void	show_ray_on_screen(t_all_data *all_data, double distance, int screen_x)
 
 	if (screen_x < 0 || screen_x >= WIDTH)
 		return ;
-	wall_type = get_wall_type(&all_data->rays[screen_x]);
-	hit_offset = calculate_hit_offset(&all_data->rays[screen_x], wall_type);
+	if (all_data->rays[screen_x].whats_hit == DOOR_HIT)
+		wall_type = DOOR;
+	else
+		wall_type = get_wall_type(&all_data->rays[screen_x]);
+	hit_offset = calculate_hit_offset(&all_data->rays[screen_x],
+			get_wall_type(&all_data->rays[screen_x]));
 	calculate_wall_bounds(distance, &params.start_y, &params.end_y);
 	if (params.end_y - params.start_y <= 0)
 		return ;
@@ -64,7 +68,7 @@ void	show_ray_on_screen(t_all_data *all_data, double distance, int screen_x)
 	params.tex_x = get_texture_x(hit_offset, all_data->textures[wall_type]);
 	params.texture_width = all_data->textures[wall_type]->width;
 	params.texture_height = all_data->textures[wall_type]->height;
-	render_wall_column((uint32_t *)all_data->window_pixels,
+	render_wall_column(all_data->window_pixels,
 		(uint32_t *)all_data->textures[wall_type]->pixels, screen_x, params);
 }
 

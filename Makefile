@@ -44,6 +44,7 @@ SRC_BONUS = bonus/cub3D_bonus.c \
 	  bonus/parsing/utils/parse_utils_bonus.c \
 	  bonus/input_handling/input_handling_bonus.c \
 	  bonus/input_handling/movement_handling_bonus.c \
+	  bonus/input_handling/utils/toggle_doors_in_proximity_bonus.c \
 	  bonus/free_ressources/all_data_bonus.c \
 	  bonus/free_ressources/parsing_bonus.c
 

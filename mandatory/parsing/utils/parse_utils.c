@@ -38,7 +38,7 @@ char	**get_six_lines(int fd)
 	return (lines);
 }
 
-t_text_col	get_text_value(char *s)
+t_texture_type	get_texture_type(char *s)
 {
 	if (ft_strcmp(s, "NO") == 0)
 		return (NORTH);

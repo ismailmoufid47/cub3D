@@ -12,7 +12,6 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define WALL_HEIGHT 0.5
 # define MOVEMENT_SPEED 0.08
 # define ROTATION_SPEED 0.1
 
@@ -71,7 +70,7 @@ typedef enum e_text_col
 	FLOOR,
 	CEILING,
 	INVALID
-}					t_text_col;
+}					t_texture_type;
 
 typedef struct s_ray_cast_data
 {
@@ -120,7 +119,7 @@ void			key_press_hook(t_mlx_key_data keydata, void *all_dat);
 // Parsing utils:
 char			**get_six_lines(int fd);
 char			*get_next_non_empty_line(int fd);
-t_text_col		get_text_value(char *s);
+t_texture_type		get_texture_type(char *s);
 
 // Ray casting utils:
 void			init_ray(t_ray *ray, t_player *player, double angle);

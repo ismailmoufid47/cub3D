@@ -45,7 +45,7 @@ void	calculate_wall_bounds(double distance, int *start_y, int *end_y)
 {
 	int	wall_screen_height;
 
-	wall_screen_height = (int)(HEIGHT * WALL_HEIGHT / distance);
+	wall_screen_height = (int)(HEIGHT / distance);
 	*start_y = HEIGHT / 2 - wall_screen_height / 2;
 	*end_y = HEIGHT / 2 + wall_screen_height / 2;
 	if (*start_y < 0)
@@ -56,18 +56,16 @@ void	calculate_wall_bounds(double distance, int *start_y, int *end_y)
 
 int	get_texture_x(double hit_offset, t_mlx_texture *texture)
 {
-	int	texture_width;
 	int	tex_x;
 
 	if (!texture)
 		return (0);
-	texture_width = texture->width;
-	if (texture_width <= 0)
+	if (texture->width <= 0)
 		return (0);
 	if (hit_offset < 0)
 		hit_offset += 1.0f;
 	if (hit_offset >= 1.0f)
 		hit_offset -= 1.0f;
-	tex_x = (int)(hit_offset * texture_width);
+	tex_x = (int)(hit_offset * texture->width);
 	return (tex_x);
 }
