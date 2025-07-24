@@ -13,7 +13,8 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define MOVEMENT_SPEED 0.08
-# define ROTATION_SPEED 0.1
+# define KEY_ROTATION_SPEED 0.1
+# define MOUSE_ROTATION_SPEED 0.05
 
 typedef enum e_whats_hit
 {
@@ -41,6 +42,8 @@ typedef struct s_input_state
 	bool			d_pressed;
 	bool			left_pressed;
 	bool			right_pressed;
+	bool			mouse_moved_left;
+	bool			mouse_moved_right;
 }					t_input_state;
 
 typedef struct s_ray
@@ -127,6 +130,7 @@ void			render(t_all_data *all_data);
 void			init_input_state(t_all_data *all_data);
 void			update_player_movement(void *all_dat);
 void			key_press_hook(t_mlx_key_data keydata, void *all_dat);
+void			mouse_move_hook(double xpos, double ypos, void *all_dat);
 
 // Utils:
 

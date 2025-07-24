@@ -5,12 +5,14 @@ void	init_input_state(t_all_data *all_data)
 	all_data->input_state = malloc(sizeof(t_input_state));
 	if (!all_data->input_state)
 		return ;
-	all_data->input_state->w_pressed = 0;
-	all_data->input_state->s_pressed = 0;
-	all_data->input_state->a_pressed = 0;
-	all_data->input_state->d_pressed = 0;
-	all_data->input_state->left_pressed = 0;
-	all_data->input_state->right_pressed = 0;
+	all_data->input_state->w_pressed = false;
+	all_data->input_state->s_pressed = false;
+	all_data->input_state->a_pressed = false;
+	all_data->input_state->d_pressed = false;
+	all_data->input_state->left_pressed = false;
+	all_data->input_state->right_pressed = false;
+	all_data->input_state->mouse_moved_left = false;
+	all_data->input_state->mouse_moved_right = false;
 }
 
 static void	handle_key_press(t_all_data *all_data, t_mlx_key_data keydata)
@@ -56,4 +58,27 @@ void	key_press_hook(t_mlx_key_data keydata, void *all_dat)
 		handle_key_press(all_data, keydata);
 	else if (keydata.action == MLX_RELEASE)
 		handle_key_release(all_data, keydata);
+}
+
+void	mouse_move_hook(double xpos, double ypos, void *all_dat)
+{
+	t_all_data	*all_data;
+	double		mouse_delta;
+
+	(void)ypos;
+	all_data = (t_all_data *)all_dat;
+	mouse_delta = xpos - (WIDTH / 2.0);
+	all_data->input_state->mouse_moved_left = false;
+	all_data->input_state->mouse_moved_right = false;
+	if (mouse_delta > 0)
+	{
+		all_data->input_state->mouse_moved_right = true;
+		all_data->input_state->mouse_moved_left = false;
+	}
+	else if (mouse_delta < 0)
+	{
+		all_data->input_state->mouse_moved_left = true;
+		all_data->input_state->mouse_moved_right = false;
+	}
+	mlx_set_mouse_pos(all_data->mlx, WIDTH / 2, HEIGHT / 2);
 }

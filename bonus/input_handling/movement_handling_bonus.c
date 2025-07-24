@@ -42,13 +42,24 @@ static void	handle_rotation(t_all_data *all_data, int *rotation_occurred)
 {
 	if (all_data->input_state->left_pressed)
 	{
-		all_data->player->direction -= ROTATION_SPEED;
+		all_data->player->direction -= KEY_ROTATION_SPEED;
 		*rotation_occurred = 1;
 	}
 	if (all_data->input_state->right_pressed)
 	{
-		all_data->player->direction += ROTATION_SPEED;
+		all_data->player->direction += KEY_ROTATION_SPEED;
 		*rotation_occurred = 1;
+	}
+	if (all_data->input_state->mouse_moved_left
+		|| all_data->input_state->mouse_moved_right)
+	{
+		if (all_data->input_state->mouse_moved_right)
+			all_data->player->direction += MOUSE_ROTATION_SPEED;
+		else
+			all_data->player->direction -= MOUSE_ROTATION_SPEED;
+		*rotation_occurred = 1;
+		all_data->input_state->mouse_moved_right = false;
+		all_data->input_state->mouse_moved_left = false;
 	}
 	if (all_data->player->direction < 0)
 		all_data->player->direction += 2 * M_PI;
