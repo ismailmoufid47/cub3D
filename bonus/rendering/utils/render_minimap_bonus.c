@@ -7,7 +7,6 @@ void	draw_square(t_all_data	*all_data, int x, int y, uint32_t color)
 	int			size;
 	uint32_t	*pixels;
 
-
 	if (WIDTH <= HEIGHT)
 		size = WIDTH / MINIMAP_SIZE;
 	else
@@ -74,10 +73,8 @@ uint32_t	get_tile_color(t_all_data *all_data, int map_x, int map_y)
 
 	if (map_y < 0 || map_x < 0)
 		return (UINT32_C(0xFF000000));
-
 	if (!all_data->map || !all_data->map[map_y])
 		return (UINT32_C(0xFF000000));
-
 	if ((size_t)map_x >= ft_strlen(all_data->map[map_y]))
 		return (UINT32_C(0xFF000000));
 	tile = all_data->map[map_y][map_x];
@@ -88,7 +85,6 @@ uint32_t	get_tile_color(t_all_data *all_data, int map_x, int map_y)
 	else
 		return (UINT32_C(0xFF000000));
 }
-
 
 void	draw_minimap(t_all_data *all_data)
 {
@@ -117,4 +113,3 @@ void	draw_minimap(t_all_data *all_data)
 	}
 	draw_player_indicator(all_data);
 }
-
