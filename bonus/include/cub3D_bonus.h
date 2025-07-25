@@ -15,6 +15,8 @@
 # define MOVEMENT_SPEED 0.08
 # define KEY_ROTATION_SPEED 0.1
 # define MOUSE_ROTATION_SPEED 0.05
+# define MINIMAP_RADIUS 3
+# define MINIMAP_SIZE 20
 
 typedef enum e_whats_hit
 {
@@ -146,6 +148,7 @@ void			init_ray_cast_data(t_ray_cast_data *data, t_all_data *all_data,
 void			calculate_deltas(t_ray_cast_data *data);
 
 // Rendering utils:
+void			draw_minimap(t_all_data *all_data);
 void			draw_background(t_all_data *all_data);
 int				get_wall_type(t_ray *ray);
 double			calculate_hit_offset(t_ray *ray, int wall_type);

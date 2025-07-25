@@ -68,7 +68,7 @@ void	draw_walls(t_all_data *all_data)
 	}
 }
 
-void draw_hands(t_all_data *all_data)
+void	draw_hands(t_all_data *all_data)
 {
 	static int		frame_counter = 0;
 	static int		hand_frame = 0;
@@ -100,5 +100,6 @@ void	render(t_all_data *all_data)
 {
 	draw_background(all_data);
 	draw_walls(all_data);
+	draw_minimap(all_data);
 	draw_hands(all_data);
 }

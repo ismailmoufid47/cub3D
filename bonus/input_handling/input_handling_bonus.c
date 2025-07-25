@@ -64,21 +64,20 @@ void	mouse_move_hook(double xpos, double ypos, void *all_dat)
 {
 	t_all_data	*all_data;
 	double		mouse_delta;
+	double		threshold;
 
 	(void)ypos;
+	threshold = 1.0;
 	all_data = (t_all_data *)all_dat;
 	mouse_delta = xpos - (WIDTH / 2.0);
 	all_data->input_state->mouse_moved_left = false;
 	all_data->input_state->mouse_moved_right = false;
-	if (mouse_delta > 0)
+	if (fabs(mouse_delta) > threshold)
 	{
-		all_data->input_state->mouse_moved_right = true;
-		all_data->input_state->mouse_moved_left = false;
+		if (mouse_delta > 0)
+			all_data->input_state->mouse_moved_right = true;
+		else
+			all_data->input_state->mouse_moved_left = true;
+		mlx_set_mouse_pos(all_data->mlx, WIDTH / 2, HEIGHT / 2);
 	}
-	else if (mouse_delta < 0)
-	{
-		all_data->input_state->mouse_moved_left = true;
-		all_data->input_state->mouse_moved_right = false;
-	}
-	mlx_set_mouse_pos(all_data->mlx, WIDTH / 2, HEIGHT / 2);
 }
