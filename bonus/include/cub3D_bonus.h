@@ -161,7 +161,7 @@ void			toggle_doors_in_proximity(t_all_data *all_data);
 // Errors:
 
 // MLX Init Error:
-void			mlx_init_error(void);
+void			mlx_init_error(t_all_data *all_data);
 
 // Textures Error:
 void			pre_textures_and_colors_error(char ***textures_and_colors);
