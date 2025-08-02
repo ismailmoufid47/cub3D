@@ -84,6 +84,9 @@ t_all_data	*init_all_data(char *filename)
 	t_mlx_image	*image;
 
 	all_data = malloc(sizeof(t_all_data));
+	all_data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
+	if (!all_data->mlx)
+		mlx_init_error();
 	fd = open_cub_file(filename);
 	all_data->textures_and_colors = get_textures_and_colors(fd, all_data);
 	if (!all_data->textures_and_colors)
@@ -93,7 +96,6 @@ t_all_data	*init_all_data(char *filename)
 	all_data->map = get_map(fd);
 	if (!all_data->map)
 		post_textures_and_colors_error(all_data->textures_and_colors);
-	all_data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	image = mlx_new_image(all_data->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(all_data->mlx, image, 0, 0);
 	all_data->window_pixels

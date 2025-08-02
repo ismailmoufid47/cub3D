@@ -135,6 +135,9 @@ int				get_texture_x(double hit_offset, t_mlx_texture *texture);
 
 // Errors:
 
+// MLX Init Error:
+void			mlx_init_error(void);
+
 // Textures Error:
 void			pre_textures_and_colors_error(char ***textures_and_colors);
 void			post_textures_and_colors_error(char **textures_and_colors);
