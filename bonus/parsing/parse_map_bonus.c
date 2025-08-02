@@ -1,5 +1,12 @@
 #include "../include/cub3D_bonus.h"
 
+int	is_only_spaces(char *line)
+{
+	while (*line && *line == ' ')
+		line++;
+	return (*line == '\0');
+}
+
 bool	is_valid_adjecent(char **map, int y, int x)
 {
 	if (x < 0)
@@ -41,19 +48,13 @@ char	**validate_map(char **map)
 		{
 			count[(int)map[y][x]]++;
 			if (!is_valid(map, y, x))
-			{
-				ft_free_split(map);
-				return (NULL);
-			}
+				return (ft_free_split(map), NULL);
 			x++;
 		}
 		y++;
 	}
 	if (count['N'] + count['S'] + count['W'] + count['E'] != 1)
-	{
-		ft_free_split(map);
-		return (NULL);
-	}
+		return (ft_free_split(map), NULL);
 	return (map);
 }
 
@@ -66,10 +67,7 @@ char	**get_map(int fd)
 	map = ft_calloc(size, sizeof(char *));
 	map[0] = get_next_non_empty_line(fd);
 	if (!map[0])
-	{
-		ft_free_split(map);
-		return (NULL);
-	}
+		return (ft_free_split(map), NULL);
 	if (ft_strchr(map[0], '\n'))
 		*ft_strchr(map[0], '\n') = '\0';
 	while (map[size - 2])
@@ -78,8 +76,12 @@ char	**get_map(int fd)
 				(size + 1) * sizeof(char *));
 		map[size - 1] = get_next_line(fd);
 		if (map[size - 1])
+		{
 			if (ft_strchr(map[size - 1], '\n'))
 				*ft_strchr(map[size - 1], '\n') = '\0';
+			if (!*map[size - 1] || is_only_spaces(map[size - 1]))
+				return (ft_free_split(map), NULL);
+		}
 		size++;
 	}
 	return (validate_map(map));

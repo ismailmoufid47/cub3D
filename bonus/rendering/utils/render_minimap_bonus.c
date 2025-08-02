@@ -72,16 +72,18 @@ uint32_t	get_tile_color(t_all_data *all_data, int map_x, int map_y)
 	char	tile;
 
 	if (map_y < 0 || map_x < 0)
-		return (UINT32_C(0xFF000000));
+		return (0);
 	if (!all_data->map || !all_data->map[map_y])
-		return (UINT32_C(0xFF000000));
+		return (0);
 	if ((size_t)map_x >= ft_strlen(all_data->map[map_y]))
-		return (UINT32_C(0xFF000000));
+		return (0);
 	tile = all_data->map[map_y][map_x];
 	if (tile == '1')
 		return ((UINT32_MAX));
-	else if (tile == 'D' || tile == 'C')
+	else if (tile == 'D')
 		return (UINT32_C(0xFF00FF00));
+	else if (tile == 'C')
+		return (UINT32_C(0xFFFF0000));
 	else
 		return (UINT32_C(0xFF000000));
 }
@@ -102,11 +104,12 @@ void	draw_minimap(t_all_data *all_data)
 		dx = -MINIMAP_RADIUS;
 		while (dx <= MINIMAP_RADIUS)
 		{
-			draw_square(all_data, (dx + MINIMAP_RADIUS) * size,
-				(dy + MINIMAP_RADIUS) * size,
-				get_tile_color(all_data,
-					(int)all_data->player->x + dx,
-					(int)all_data->player->y + dy));
+			if (get_tile_color(all_data, (int)all_data->player->x + dx,
+					(int)all_data->player->y + dy))
+				draw_square(all_data, (dx + MINIMAP_RADIUS) * size,
+					(dy + MINIMAP_RADIUS) * size,
+					get_tile_color(all_data, (int)all_data->player->x + dx,
+						(int)all_data->player->y + dy));
 			dx++;
 		}
 		dy++;
