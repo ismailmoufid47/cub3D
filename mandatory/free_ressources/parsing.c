@@ -3,7 +3,7 @@
 void	mlx_init_error(t_all_data *all_data)
 {
 	free(all_data);
-	ft_putendl_fd("Error: mlx_init failed", 2);
+	ft_putendl_fd("Error", 2);
 	exit(EXIT_FAILURE);
 }
 

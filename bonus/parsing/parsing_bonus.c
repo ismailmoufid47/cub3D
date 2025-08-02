@@ -86,7 +86,7 @@ t_all_data	*init_all_data(char *filename)
 	all_data = malloc(sizeof(t_all_data));
 	all_data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!all_data->mlx)
-		mlx_init_error();
+		mlx_init_error(all_data);
 	fd = open_cub_file(filename);
 	all_data->textures_and_colors = get_textures_and_colors(fd, all_data);
 	if (!all_data->textures_and_colors)
