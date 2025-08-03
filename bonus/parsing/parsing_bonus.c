@@ -100,7 +100,7 @@ t_all_data	*init_all_data(char *filename)
 	mlx_image_to_window(all_data->mlx, image, 0, 0);
 	all_data->window_pixels
 		= (uint32_t *)image->pixels;
-	all_data->player = malloc(sizeof(t_all_data));
+	all_data->player = malloc(sizeof(t_player));
 	init_player(all_data->player, all_data->map);
 	all_data->rays = malloc(sizeof(t_ray) * WIDTH);
 	return (all_data);
