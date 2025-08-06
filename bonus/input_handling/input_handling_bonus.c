@@ -54,7 +54,7 @@ void	key_press_hook(t_mlx_key_data keydata, void *all_dat)
 	t_all_data	*all_data;
 
 	all_data = (t_all_data *)all_dat;
-	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
+	if (keydata.action == MLX_PRESS)
 		handle_key_press(all_data, keydata);
 	else if (keydata.action == MLX_RELEASE)
 		handle_key_release(all_data, keydata);
@@ -64,15 +64,13 @@ void	mouse_move_hook(double xpos, double ypos, void *all_dat)
 {
 	t_all_data	*all_data;
 	double		mouse_delta;
-	double		threshold;
 
 	(void)ypos;
-	threshold = 1.0;
 	all_data = (t_all_data *)all_dat;
 	mouse_delta = xpos - (WIDTH / 2.0);
 	all_data->input_state->mouse_moved_left = false;
 	all_data->input_state->mouse_moved_right = false;
-	if (fabs(mouse_delta) > threshold)
+	if (fabs(mouse_delta) > 1.0)
 	{
 		if (mouse_delta > 0)
 			all_data->input_state->mouse_moved_right = true;

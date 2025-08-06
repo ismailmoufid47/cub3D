@@ -52,7 +52,7 @@ void	key_press_hook(t_mlx_key_data keydata, void *all_dat)
 	t_all_data	*all_data;
 
 	all_data = (t_all_data *)all_dat;
-	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
+	if (keydata.action == MLX_PRESS)
 		handle_key_press(all_data, keydata);
 	else if (keydata.action == MLX_RELEASE)
 		handle_key_release(all_data, keydata);

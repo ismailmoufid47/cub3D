@@ -10,7 +10,6 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	all_data = init_all_data(argv[1]);
-	init_input_state(all_data);
 	mlx_set_cursor_mode(all_data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_cursor_hook(all_data->mlx, mouse_move_hook, (void *)all_data);
 	mlx_key_hook(all_data->mlx, key_press_hook, (void *)all_data);

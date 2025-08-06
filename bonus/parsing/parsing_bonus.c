@@ -89,9 +89,7 @@ t_all_data	*init_all_data(char *filename)
 		mlx_init_error(all_data);
 	fd = open_cub_file(filename);
 	all_data->textures_and_colors = get_textures_and_colors(fd, all_data);
-	if (!all_data->textures_and_colors)
-		post_textures_and_colors_error(all_data->textures_and_colors);
-	if (!set_colors(all_data))
+	if (!all_data->textures_and_colors || !set_colors(all_data))
 		post_textures_and_colors_error(all_data->textures_and_colors);
 	all_data->map = get_map(fd);
 	if (!all_data->map)
@@ -103,5 +101,6 @@ t_all_data	*init_all_data(char *filename)
 	all_data->player = malloc(sizeof(t_player));
 	init_player(all_data->player, all_data->map);
 	all_data->rays = malloc(sizeof(t_ray) * WIDTH);
+	init_input_state(all_data);
 	return (all_data);
 }
