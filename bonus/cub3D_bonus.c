@@ -14,7 +14,7 @@ int	main(int argc, char **argv)
 	mlx_set_cursor_mode(all_data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_cursor_hook(all_data->mlx, mouse_move_hook, (void *)all_data);
 	mlx_key_hook(all_data->mlx, key_press_hook, (void *)all_data);
-	mlx_loop_hook(all_data->mlx, update_player_movement, (void *)all_data);
+	mlx_loop_hook(all_data->mlx, game_loop, (void *)all_data);
 	cast_rays(all_data);
 	render(all_data);
 	mlx_loop(all_data->mlx);

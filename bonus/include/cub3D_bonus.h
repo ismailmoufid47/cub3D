@@ -130,7 +130,7 @@ void			render(t_all_data *all_data);
 
 // Handle Input:
 void			init_input_state(t_all_data *all_data);
-void			update_player_movement(void *all_dat);
+void			game_loop(void *all_dat);
 void			key_press_hook(t_mlx_key_data keydata, void *all_dat);
 void			mouse_move_hook(double xpos, double ypos, void *all_dat);
 

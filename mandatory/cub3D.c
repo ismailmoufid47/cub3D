@@ -12,7 +12,7 @@ int	main(int argc, char **argv)
 	all_data = init_all_data(argv[1]);
 	init_input_state(all_data);
 	mlx_key_hook(all_data->mlx, key_press_hook, (void *)all_data);
-	mlx_loop_hook(all_data->mlx, update_player_movement, (void *)all_data);
+	mlx_loop_hook(all_data->mlx, game_loop, (void *)all_data);
 	cast_rays(all_data);
 	render(all_data);
 	mlx_loop(all_data->mlx);

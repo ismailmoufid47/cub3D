@@ -91,7 +91,7 @@ static void	handle_player_movement(t_all_data *all_data, int *movement_occurred)
 	}
 }
 
-void	update_player_movement(void *all_dat)
+void	game_loop(void *all_dat)
 {
 	t_all_data	*all_data;
 	int			movement_occurred;
@@ -100,11 +100,11 @@ void	update_player_movement(void *all_dat)
 	all_data = (t_all_data *)all_dat;
 	movement_occurred = 0;
 	rotation_occurred = 0;
-	toggle_doors_in_proximity(all_data);
 	handle_rotation(all_data, &rotation_occurred);
 	handle_player_movement(all_data, &movement_occurred);
 	if (movement_occurred || rotation_occurred)
 	{
+		toggle_doors_in_proximity(all_data);
 		cast_rays(all_data);
 		render(all_data);
 	}

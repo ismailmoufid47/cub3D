@@ -80,7 +80,7 @@ static void	handle_player_movement(t_all_data *all_data, int *movement_occurred)
 	}
 }
 
-void	update_player_movement(void *all_dat)
+void	game_loop(void *all_dat)
 {
 	t_all_data	*all_data;
 	int			movement_occurred;
