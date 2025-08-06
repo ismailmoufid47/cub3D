@@ -44,6 +44,23 @@ char	**sorted_files(char ***textures_and_colors)
 	return (sorted_files);
 }
 
+bool	check_hands_textures(char **textures_and_colors, t_all_data *all_data)
+{
+	all_data->textures[HANDS1] = mlx_load_png(textures_and_colors[HANDS1]);
+	if (!all_data->textures[HANDS1])
+		return (false);
+	all_data->textures[HANDS2] = mlx_load_png(textures_and_colors[HANDS2]);
+	if (!all_data->textures[HANDS2])
+		return (false);
+	all_data->textures[HANDS3] = mlx_load_png(textures_and_colors[HANDS3]);
+	if (!all_data->textures[HANDS3])
+		return (false);
+	all_data->textures[HANDS4] = mlx_load_png(textures_and_colors[HANDS4]);
+	if (!all_data->textures[HANDS4])
+		return (false);
+	return (true);
+}
+
 bool	check_textures(char **textures_and_colors, t_all_data *all_data)
 {
 	all_data->textures[NORTH] = mlx_load_png(textures_and_colors[NORTH]);
@@ -58,17 +75,7 @@ bool	check_textures(char **textures_and_colors, t_all_data *all_data)
 	all_data->textures[EAST] = mlx_load_png(textures_and_colors[EAST]);
 	if (!all_data->textures[EAST])
 		return (false);
-	all_data->textures[HANDS1] = mlx_load_png(textures_and_colors[HANDS1]);
-	if (!all_data->textures[HANDS1])
-		return (false);
-	all_data->textures[HANDS2] = mlx_load_png(textures_and_colors[HANDS2]);
-	if (!all_data->textures[HANDS2])
-		return (false);
-	all_data->textures[HANDS3] = mlx_load_png(textures_and_colors[HANDS3]);
-	if (!all_data->textures[HANDS3])
-		return (false);
-	all_data->textures[HANDS4] = mlx_load_png(textures_and_colors[HANDS4]);
-	if (!all_data->textures[HANDS4])
+	if (!check_hands_textures(textures_and_colors, all_data))
 		return (false);
 	all_data->textures[DOOR] = mlx_load_png(textures_and_colors[DOOR]);
 	if (!all_data->textures[DOOR])
