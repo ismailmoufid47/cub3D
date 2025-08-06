@@ -10,8 +10,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 500
+# define HEIGHT 250
 # define MOVEMENT_SPEED 0.08
 # define ROTATION_SPEED 0.1
 
