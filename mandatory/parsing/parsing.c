@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/07 12:34:36 by moel-amr          #+#    #+#             */
+/*   Updated: 2025/08/07 12:34:36 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3D.h"
 
 int	open_cub_file(char *filename)
@@ -90,10 +102,11 @@ t_all_data	*init_all_data(char *filename)
 	fd = open_cub_file(filename);
 	all_data->textures_and_colors = get_textures_and_colors(fd, all_data);
 	if (!all_data->textures_and_colors || !set_colors(all_data))
-		post_textures_and_colors_error(all_data->textures_and_colors);
+		post_textures_and_colors_error(all_data->textures_and_colors, fd);
 	all_data->map = get_map(fd);
 	if (!all_data->map)
-		post_textures_and_colors_error(all_data->textures_and_colors);
+		post_textures_and_colors_error(all_data->textures_and_colors, fd);
+	close(fd);
 	image = mlx_new_image(all_data->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(all_data->mlx, image, 0, 0);
 	all_data->window_pixels

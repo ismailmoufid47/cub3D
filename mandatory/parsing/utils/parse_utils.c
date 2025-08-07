@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/07 12:33:48 by moel-amr          #+#    #+#             */
+/*   Updated: 2025/08/07 12:33:48 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3D.h"
 
 char	*get_next_non_empty_line(int fd)
@@ -27,6 +39,7 @@ char	**get_six_lines(int fd)
 		lines[i] = get_next_non_empty_line(fd);
 		if (!lines[i])
 		{
+			close(fd);
 			ft_free_split(lines);
 			ft_putendl_fd("Error", 2);
 			exit(EXIT_FAILURE);

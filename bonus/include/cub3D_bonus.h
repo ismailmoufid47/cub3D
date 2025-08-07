@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/07 12:35:24 by moel-amr          #+#    #+#             */
+/*   Updated: 2025/08/07 12:35:24 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 
@@ -164,7 +176,6 @@ void			toggle_doors_in_proximity(t_all_data *all_data);
 void			mlx_init_error(t_all_data *all_data);
 
 // Textures Error:
-void			pre_textures_and_colors_error(char ***textures_and_colors);
 void			post_textures_and_colors_error(char **textures_and_colors);
 
 // Free Resources:

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_textures.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/07 12:38:18 by moel-amr          #+#    #+#             */
+/*   Updated: 2025/08/07 12:38:18 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3D.h"
 
 char	***validate_textures_and_colors(int fd)
@@ -16,6 +28,7 @@ char	***validate_textures_and_colors(int fd)
 			|| textures_and_colors[i][2])
 		{
 			ft_free_split(lines);
+			close(fd);
 			free_splits(textures_and_colors);
 			ft_putendl_fd("Error", 2);
 			exit(EXIT_FAILURE);

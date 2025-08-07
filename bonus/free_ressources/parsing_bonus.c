@@ -1,15 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/07 12:35:19 by moel-amr          #+#    #+#             */
+/*   Updated: 2025/08/07 12:35:19 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3D_bonus.h"
 
 void	mlx_init_error(t_all_data *all_data)
 {
 	free(all_data);
-	ft_putendl_fd("Error", 2);
-	exit(EXIT_FAILURE);
-}
-
-void	pre_textures_and_colors_error(char ***textures_and_colors)
-{
-	free_splits(textures_and_colors);
 	ft_putendl_fd("Error", 2);
 	exit(EXIT_FAILURE);
 }
