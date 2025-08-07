@@ -27,7 +27,7 @@
 # define MOVEMENT_SPEED 0.05
 # define KEY_ROTATION_SPEED 0.1
 # define MOUSE_ROTATION_SPEED 0.05
-# define MINIMAP_RADIUS 3
+# define MINIMAP_RADIUS 1
 # define MINIMAP_SIZE 20
 
 typedef enum e_whats_hit
