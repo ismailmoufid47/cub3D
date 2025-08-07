@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rendering.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:34:51 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:35:05 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   rendering.c                                                              */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:34:51 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 12:35:05 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	draw_background(t_all_data *all_data)
 	}
 }
 
-void	render_wall_column(uint32_t *screen_pixels,
-		uint32_t *tex_pixels, int x, t_wall_render_params params)
+void	render_wall_column(uint32_t *screen_pixels, uint32_t *tex_pixels, int x,
+		t_wall_render_params params)
 {
 	int		y;
 	int		wall_screen_height;
@@ -53,8 +53,8 @@ void	render_wall_column(uint32_t *screen_pixels,
 			tex_y = params.texture_height - 1;
 		if (tex_y < 0)
 			tex_y = 0;
-		screen_pixels[y * WIDTH + x]
-			= tex_pixels[tex_y * params.texture_width + params.tex_x];
+		screen_pixels[y * WIDTH + x] = tex_pixels[tex_y * params.texture_width
+			+ params.tex_x];
 		y++;
 	}
 }
@@ -82,16 +82,16 @@ void	show_ray_on_screen(t_all_data *all_data, double distance, int screen_x)
 
 void	draw_walls(t_all_data *all_data)
 {
-	int			i;
-	double		distance;
+	int		i;
+	double	distance;
 
 	i = 0;
 	while (i < WIDTH)
 	{
 		distance = sqrt(pow(all_data->rays[i].end_x - all_data->player->x, 2)
 				+ pow(all_data->rays[i].end_y - all_data->player->y, 2));
-		distance = distance
-			* cos(all_data->rays[i].angle - all_data->player->direction);
+		distance = distance * cos(all_data->rays[i].angle
+				- all_data->player->direction);
 		show_ray_on_screen(all_data, distance, i);
 		i++;
 	}

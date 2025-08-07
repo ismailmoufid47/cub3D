@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_bonus.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:35:19 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:35:19 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   parsing_bonus.c                                                          */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:35:19 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 18:24:33 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	mlx_init_error(t_all_data *all_data)
 	exit(EXIT_FAILURE);
 }
 
-void	post_textures_and_colors_error(char **textures_and_colors)
+void	post_textures_and_colors_error(char **textures_and_colors, int fd)
 {
+	close(fd);
 	ft_free_split(textures_and_colors);
 	ft_putendl_fd("Error", 2);
 	exit(EXIT_FAILURE);

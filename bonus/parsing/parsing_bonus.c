@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_bonus.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:36:53 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:36:53 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   parsing_bonus.c                                                          */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:36:53 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 18:29:43 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	open_cub_file(char *filename)
 	char	*found;
 
 	found = ft_strstr(filename, ".cub");
-	if (!found || *(found + 4) || found == filename
-		|| ft_strrchr(filename, '/') + 1 == found)
+	if (!found || *(found + 4) || found == filename || ft_strrchr(filename, '/')
+		+ 1 == found)
 	{
 		ft_putendl_fd("Error", 2);
 		exit(EXIT_FAILURE);
@@ -33,10 +33,10 @@ int	open_cub_file(char *filename)
 	return (fd);
 }
 
-void	init_player(t_player	*player, char **map)
+void	init_player(t_player *player, char **map)
 {
-	int			y;
-	int			x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (map[y])
@@ -70,20 +70,19 @@ bool	set_colors(t_all_data *all_data)
 	if ((!ceil || (!ceil[0] || ft_atoi(ceil[0]) > 255 || ft_atoi(ceil[0]) < 0)
 			|| (!ceil[1] || ft_atoi(ceil[1]) > 255 || ft_atoi(ceil[1]) < 0)
 			|| (!ceil[2] || ft_atoi(ceil[2]) > 255 || ft_atoi(ceil[2]) < 0)
-			|| ceil[3])
-		|| ((!flor[0] || ft_atoi(flor[0]) > 255 || ft_atoi(flor[0]) < 0)
-			|| (!flor[1] || ft_atoi(flor[1]) > 255 || ft_atoi(flor[1]) < 0)
-			|| (!flor[2] || ft_atoi(flor[2]) > 255 || ft_atoi(flor[2]) < 0)
-			|| flor[3]))
+			|| ceil[3]) || ((!flor[0] || ft_atoi(flor[0]) > 255
+				|| ft_atoi(flor[0]) < 0) || (!flor[1] || ft_atoi(flor[1]) > 255
+				|| ft_atoi(flor[1]) < 0) || (!flor[2] || ft_atoi(flor[2]) > 255
+				|| ft_atoi(flor[2]) < 0) || flor[3]))
 	{
 		ft_free_split(ceil);
 		ft_free_split(flor);
 		return (false);
 	}
-	all_data->ceiling_color = (255 << 24)
-		+ (ft_atoi(ceil[2]) << 16) + (ft_atoi(ceil[1]) << 8) + ft_atoi(ceil[0]);
-	all_data->floor_color = (255 << 24)
-		+ (ft_atoi(flor[2]) << 16) + (ft_atoi(flor[1]) << 8) + ft_atoi(flor[0]);
+	all_data->ceiling_color = (255 << 24) + (ft_atoi(ceil[2]) << 16)
+		+ (ft_atoi(ceil[1]) << 8) + ft_atoi(ceil[0]);
+	all_data->floor_color = (255 << 24) + (ft_atoi(flor[2]) << 16)
+		+ (ft_atoi(flor[1]) << 8) + ft_atoi(flor[0]);
 	ft_free_split(ceil);
 	ft_free_split(flor);
 	return (true);
@@ -102,14 +101,14 @@ t_all_data	*init_all_data(char *filename)
 	fd = open_cub_file(filename);
 	all_data->textures_and_colors = get_textures_and_colors(fd, all_data);
 	if (!all_data->textures_and_colors || !set_colors(all_data))
-		post_textures_and_colors_error(all_data->textures_and_colors);
+		post_textures_and_colors_error(all_data->textures_and_colors, fd);
 	all_data->map = get_map(fd);
 	if (!all_data->map)
-		post_textures_and_colors_error(all_data->textures_and_colors);
+		post_textures_and_colors_error(all_data->textures_and_colors, fd);
+	close(fd);
 	image = mlx_new_image(all_data->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(all_data->mlx, image, 0, 0);
-	all_data->window_pixels
-		= (uint32_t *)image->pixels;
+	all_data->window_pixels = (uint32_t *)image->pixels;
 	all_data->player = malloc(sizeof(t_player));
 	init_player(all_data->player, all_data->map);
 	all_data->rays = malloc(sizeof(t_ray) * WIDTH);

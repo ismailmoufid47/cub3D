@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_utils_bonus.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:36:56 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:36:56 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   parse_utils_bonus.c                                                      */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:36:56 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 18:23:38 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	**get_twelve_lines(int fd)
 		lines[i] = get_next_non_empty_line(fd);
 		if (!lines[i])
 		{
+			close(fd);
 			ft_free_split(lines);
 			ft_putendl_fd("Error", 2);
 			exit(EXIT_FAILURE);

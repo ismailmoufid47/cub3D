@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_textures_bonus.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:37:20 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:37:32 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   parse_textures_bonus.c                                                   */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:37:20 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 18:23:09 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	***validate_textures_and_colors(int fd)
 		if (!textures_and_colors[i][0] || !textures_and_colors[i][1]
 			|| textures_and_colors[i][2])
 		{
+			close(fd);
 			ft_free_split(lines);
 			free_splits(textures_and_colors);
 			ft_putendl_fd("Error", 2);

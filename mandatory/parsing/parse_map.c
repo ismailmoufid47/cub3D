@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:36:03 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:36:03 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   parse_map.c                                                              */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:36:03 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 12:36:03 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ bool	is_valid(char **map, int y, int x)
 		return (false);
 	if (ft_strchr("0NSWE", map[y][x]))
 	{
-		if (!is_valid_adjecent(map, y - 1, x)
-			|| !is_valid_adjecent(map, y + 1, x)
-			|| !is_valid_adjecent(map, y, x - 1)
+		if (!is_valid_adjecent(map, y - 1, x) || !is_valid_adjecent(map, y + 1,
+				x) || !is_valid_adjecent(map, y, x - 1)
 			|| !is_valid_adjecent(map, y, x + 1))
 			return (false);
 	}
@@ -49,9 +48,9 @@ bool	is_valid(char **map, int y, int x)
 
 char	**validate_map(char **map)
 {
-	static int		count[255];
-	static int		y;
-	int				x;
+	static int	count[255];
+	static int	y;
+	int			x;
 
 	while (map[y])
 	{
@@ -84,8 +83,8 @@ char	**get_map(int fd)
 		*ft_strchr(map[0], '\n') = '\0';
 	while (map[size - 2])
 	{
-		map = ft_recalloc(map, size * sizeof(char *),
-				(size + 1) * sizeof(char *));
+		map = ft_recalloc(map, size * sizeof(char *), (size + 1)
+				* sizeof(char *));
 		map[size - 1] = get_next_line(fd);
 		if (map[size - 1])
 		{

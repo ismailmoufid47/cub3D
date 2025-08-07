@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3D_bonus.h                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:35:24 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:35:24 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   cub3D_bonus.h                                                            */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:35:24 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 18:25:12 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,59 +127,60 @@ typedef struct s_wall_render_params
 }					t_wall_render_params;
 
 // Parse:
-t_all_data		*init_all_data(char *filename);
+t_all_data			*init_all_data(char *filename);
 
 // Parse Textures:
-char			**get_textures_and_colors(int fd, t_all_data *all_data);
+char				**get_textures_and_colors(int fd, t_all_data *all_data);
 // Parse Map:
-char			**get_map(int fd);
+char				**get_map(int fd);
 
 // Cast Rays:
-void			cast_rays(t_all_data *all_data);
+void				cast_rays(t_all_data *all_data);
 
 // Render:
-void			render(t_all_data *all_data);
+void				render(t_all_data *all_data);
 
 // Handle Input:
-void			init_input_state(t_all_data *all_data);
-void			game_loop(void *all_dat);
-void			key_press_hook(t_mlx_key_data keydata, void *all_dat);
-void			mouse_move_hook(double xpos, double ypos, void *all_dat);
+void				init_input_state(t_all_data *all_data);
+void				game_loop(void *all_dat);
+void				key_press_hook(t_mlx_key_data keydata, void *all_dat);
+void				mouse_move_hook(double xpos, double ypos, void *all_dat);
 
 // Utils:
 
 // Parsing utils:
-char			**get_twelve_lines(int fd);
-char			*get_next_non_empty_line(int fd);
-t_texture_type	get_texture_type(char *s);
+char				**get_twelve_lines(int fd);
+char				*get_next_non_empty_line(int fd);
+t_texture_type		get_texture_type(char *s);
 
 // Ray casting utils:
-void			init_ray(t_ray *ray, t_player *player, double angle);
-void			init_ray_cast_data(t_ray_cast_data *data, t_all_data *all_data,
-					double angle);
-void			calculate_deltas(t_ray_cast_data *data);
+void				init_ray(t_ray *ray, t_player *player, double angle);
+void				init_ray_cast_data(t_ray_cast_data *data,
+						t_all_data *all_data, double angle);
+void				calculate_deltas(t_ray_cast_data *data);
 
 // Rendering utils:
-void			draw_minimap(t_all_data *all_data);
-void			draw_background(t_all_data *all_data);
-int				get_wall_type(t_ray *ray);
-double			calculate_hit_offset(t_ray *ray, int wall_type);
-void			calculate_wall_bounds(double dis, int *start_y, int *end_y);
-int				get_texture_x(double hit_offset, t_mlx_texture *texture);
+void				draw_minimap(t_all_data *all_data);
+void				draw_background(t_all_data *all_data);
+int					get_wall_type(t_ray *ray);
+double				calculate_hit_offset(t_ray *ray, int wall_type);
+void				calculate_wall_bounds(double dis, int *start_y, int *end_y);
+int					get_texture_x(double hit_offset, t_mlx_texture *texture);
 
 // Input handling utils:
-void			toggle_doors_in_proximity(t_all_data *all_data);
+void				toggle_doors_in_proximity(t_all_data *all_data);
 
 // Errors:
 
 // MLX Init Error:
-void			mlx_init_error(t_all_data *all_data);
+void				mlx_init_error(t_all_data *all_data);
 
 // Textures Error:
-void			post_textures_and_colors_error(char **textures_and_colors);
+void				post_textures_and_colors_error(char **textures_and_colors,
+						int fd);
 
 // Free Resources:
 
-void			free_all_data(t_all_data *all_data);
+void				free_all_data(t_all_data *all_data);
 
 #endif

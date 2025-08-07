@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3D_bonus.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:36:42 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:36:42 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   cub3D_bonus.c                                                            */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:36:42 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 18:24:19 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/cub3D_bonus.h"
 
+void	lopo(void)
+{
+	while (1)
+		;
+}
+
 int	main(int argc, char **argv)
 {
 	t_all_data	*all_data;
 
+	atexit(lopo);
 	if (argc != 2)
 	{
 		ft_putendl_fd("Usage: ./cub3D <map.cub>", 2);

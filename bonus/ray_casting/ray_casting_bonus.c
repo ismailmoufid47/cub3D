@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ray_casting_bonus.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:36:59 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:36:59 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   ray_casting_bonus.c                                                      */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:36:59 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 12:36:59 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D_bonus.h"
 
-void	calculate_initial_distances(t_ray_cast_data *data,
-		t_all_data *all_data)
+void	calculate_initial_distances(t_ray_cast_data *data, t_all_data *all_data)
 {
 	if (data->x_ray_direction > 0)
 		data->ray_distance_x = data->delta_x * ((data->map_x + 1)
@@ -33,8 +32,7 @@ void	calculate_initial_distances(t_ray_cast_data *data,
 		data->ray_distance_y = INFINITY;
 }
 
-void	step_horizontal(t_ray_cast_data *data, t_all_data *all_data,
-		t_ray *ray)
+void	step_horizontal(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
 {
 	data->distance_to_wall = data->ray_distance_y;
 	if (all_data->map[data->map_y][data->map_x] != '1'
@@ -49,8 +47,7 @@ void	step_horizontal(t_ray_cast_data *data, t_all_data *all_data,
 	}
 }
 
-void	step_vertical(t_ray_cast_data *data, t_all_data *all_data,
-		t_ray *ray)
+void	step_vertical(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
 {
 	data->distance_to_wall = data->ray_distance_x;
 	if (all_data->map[data->map_y][data->map_x] != '1'
@@ -65,8 +62,7 @@ void	step_vertical(t_ray_cast_data *data, t_all_data *all_data,
 	}
 }
 
-void	perform_dda(t_ray_cast_data *data, t_all_data *all_data,
-		t_ray *ray)
+void	perform_dda(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
 {
 	while (all_data->map[data->map_y][data->map_x] != '1'
 		&& all_data->map[data->map_y][data->map_x] != 'D')
@@ -97,8 +93,8 @@ void	cast_rays(t_all_data *all)
 	while (screen_x < WIDTH)
 	{
 		screen_x_offset_from_center = screen_x - (WIDTH / 2);
-		ray_angle = all->player->direction
-			+ atan2(screen_x_offset_from_center, (WIDTH / 2));
+		ray_angle = all->player->direction + atan2(screen_x_offset_from_center,
+				(WIDTH / 2));
 		init_ray(&all->rays[screen_x], all->player, ray_angle);
 		init_ray_cast_data(&data, all, ray_angle);
 		calculate_deltas(&data);

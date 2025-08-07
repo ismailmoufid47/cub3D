@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render_minimap_bonus.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:37:09 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:37:09 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   render_minimap_bonus.c                                                   */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:37:09 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 12:37:09 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D_bonus.h"
 
-void	draw_square(t_all_data	*all_data, int x, int y, uint32_t color)
+void	draw_square(t_all_data *all_data, int x, int y, uint32_t color)
 {
 	int			y2;
 	int			x2;
@@ -41,18 +41,18 @@ void	init_indicator_data(int *start_x, int *start_y, int *indicator_size)
 {
 	if (WIDTH <= HEIGHT)
 	{
-		*start_y = (WIDTH / MINIMAP_SIZE * MINIMAP_RADIUS)
-			+ (WIDTH / MINIMAP_SIZE * 0.5);
-		*start_x = (WIDTH / MINIMAP_SIZE * MINIMAP_RADIUS)
-			+ (WIDTH / MINIMAP_SIZE * 0.5);
+		*start_y = (WIDTH / MINIMAP_SIZE * MINIMAP_RADIUS) + (WIDTH
+				/ MINIMAP_SIZE * 0.5);
+		*start_x = (WIDTH / MINIMAP_SIZE * MINIMAP_RADIUS) + (WIDTH
+				/ MINIMAP_SIZE * 0.5);
 		*indicator_size = WIDTH / MINIMAP_SIZE / 5;
 	}
 	else
 	{
-		*start_y = (HEIGHT / MINIMAP_SIZE * MINIMAP_RADIUS)
-			+ (HEIGHT / MINIMAP_SIZE * 0.5);
-		*start_x = (HEIGHT / MINIMAP_SIZE * MINIMAP_RADIUS)
-			+ (HEIGHT / MINIMAP_SIZE * 0.5);
+		*start_y = (HEIGHT / MINIMAP_SIZE * MINIMAP_RADIUS) + (HEIGHT
+				/ MINIMAP_SIZE * 0.5);
+		*start_x = (HEIGHT / MINIMAP_SIZE * MINIMAP_RADIUS) + (HEIGHT
+				/ MINIMAP_SIZE * 0.5);
 		*indicator_size = HEIGHT / MINIMAP_SIZE / 5;
 	}
 }
@@ -118,10 +118,10 @@ void	draw_minimap(t_all_data *all_data)
 		{
 			if (get_tile_color(all_data, (int)all_data->player->x + dx,
 					(int)all_data->player->y + dy))
-				draw_square(all_data, (dx + MINIMAP_RADIUS) * size,
-					(dy + MINIMAP_RADIUS) * size,
-					get_tile_color(all_data, (int)all_data->player->x + dx,
-						(int)all_data->player->y + dy));
+				draw_square(all_data, (dx + MINIMAP_RADIUS) * size, (dy
+						+ MINIMAP_RADIUS) * size, get_tile_color(all_data,
+						(int)all_data->player->x + dx, (int)all_data->player->y
+						+ dy));
 			dx++;
 		}
 		dy++;

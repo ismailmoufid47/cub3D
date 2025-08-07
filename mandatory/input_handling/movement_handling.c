@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   movement_handling.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:36:30 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:36:30 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   movement_handling.c                                                      */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:36:30 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 12:36:30 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int	is_valid_position(t_all_data *all_data, double x, double y)
 	double	buffer;
 
 	buffer = 0.1;
-	if (all_data->map[(int)(y - buffer)][(int)(x - buffer)] == '1' ||
-		all_data->map[(int)(y - buffer)][(int)(x + buffer)] == '1' ||
-		all_data->map[(int)(y + buffer)][(int)(x - buffer)] == '1' ||
-		all_data->map[(int)(y + buffer)][(int)(x + buffer)] == '1')
+	if (all_data->map[(int)(y - buffer)][(int)(x - buffer)] == '1'
+		|| all_data->map[(int)(y - buffer)][(int)(x + buffer)] == '1'
+		|| all_data->map[(int)(y + buffer)][(int)(x - buffer)] == '1'
+		|| all_data->map[(int)(y + buffer)][(int)(x + buffer)] == '1')
 		return (0);
 	return (1);
 }

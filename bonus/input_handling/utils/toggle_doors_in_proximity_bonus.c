@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   toggle_doors_in_proximity_bonus.c                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:35:38 by moel-amr          #+#    #+#             */
-/*   Updated: 2025/08/07 12:35:38 by moel-amr         ###   ########.fr       */
+/*                                                                            */
+/*   toggle_doors_in_proximity_bonus.c                                        */
+/*                                                                            */
+/*   By: moel-amr & isel-mou                                                  */
+/*                                                                            */
+/*   Created: 2025/08/07 12:35:38 by moel-amr & isel-mou                      */
+/*   Updated: 2025/08/07 12:35:38 by moel-amr & isel-mou                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ bool	is_door_in_proximity(t_all_data *all_data, int door_x, int door_y)
 
 	player_x = (int)all_data->player->x;
 	player_y = (int)all_data->player->y;
-	if ((door_x == player_x && door_y == player_y)
-		|| (door_x == player_x - 1 && door_y == player_y)
-		|| (door_x == player_x + 1 && door_y == player_y)
-		|| (door_x == player_x && door_y == player_y - 1)
-		|| (door_x == player_x && door_y == player_y + 1)
-		|| (door_x == player_x - 2 && door_y == player_y)
-		|| (door_x == player_x + 2 && door_y == player_y)
-		|| (door_x == player_x && door_y == player_y - 2)
-		|| (door_x == player_x && door_y == player_y + 2))
+	if ((door_x == player_x && door_y == player_y) || (door_x == player_x - 1
+			&& door_y == player_y) || (door_x == player_x + 1
+			&& door_y == player_y) || (door_x == player_x && door_y == player_y
+			- 1) || (door_x == player_x && door_y == player_y + 1)
+		|| (door_x == player_x - 2 && door_y == player_y) || (door_x == player_x
+			+ 2 && door_y == player_y) || (door_x == player_x
+			&& door_y == player_y - 2) || (door_x == player_x
+			&& door_y == player_y + 2))
 		return (true);
 	return (false);
 }
