@@ -82,10 +82,10 @@ void	draw_walls(t_all_data *all_data)
 
 void	draw_hands(t_all_data *all_data)
 {
-	static int		frame_counter = 0;
-	static int		hand_frame = 0;
-	static int		animation_speed = 2;
-	t_mlx_image		*mlx_img;
+	static int			frame_counter = 0;
+	static int			hand_frame = 0;
+	static int			animation_speed = 2;
+	t_mlx_image			*mlx_img;
 
 	if (frame_counter % animation_speed == 0)
 	{
