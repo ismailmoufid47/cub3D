@@ -53,38 +53,25 @@ char	**get_sixteen_lines(int fd)
 
 t_texture_type	get_hand_texture_type(char *s)
 {
-	if (ft_strcmp(s, "H1") == 0)
-		return (HANDS1);
-	if (ft_strcmp(s, "H2") == 0)
-		return (HANDS2);
-	if (ft_strcmp(s, "H3") == 0)
-		return (HANDS3);
-	if (ft_strcmp(s, "H4") == 0)
-		return (HANDS4);
-	if (ft_strcmp(s, "H5") == 0)
-		return (HANDS5);
-	if (ft_strcmp(s, "H6") == 0)
-		return (HANDS6);
-	if (ft_strcmp(s, "H7") == 0)
-		return (HANDS7);
-	if (ft_strcmp(s, "H8") == 0)
-		return (HANDS8);
-	if (ft_strcmp(s, "H9") == 0)
-		return (HANDS9);
-	if (ft_strcmp(s, "H10") == 0)
-		return (HANDS10);
-	if (ft_strcmp(s, "H11") == 0)
-		return (HANDS11);
-	if (ft_strcmp(s, "H12") == 0)
-		return (HANDS12);
-	if (ft_strcmp(s, "H13") == 0)
-		return (HANDS13);
-	if (ft_strcmp(s, "H14") == 0)
-		return (HANDS14);
-	if (ft_strcmp(s, "H15") == 0)
-		return (HANDS15);
-	if (ft_strcmp(s, "H16") == 0)
-		return (HANDS16);
+	int					i;
+	char				**hand_keys;
+	t_texture_type		*hand_values;
+
+	hand_keys = (char *[]){
+		"H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8",
+		"H9", "H10", "H11", "H12", "H13", "H14", "H15", "H16"
+	};
+	hand_values = (t_texture_type[]){
+		HANDS1, HANDS2, HANDS3, HANDS4, HANDS5, HANDS6, HANDS7, HANDS8,
+		HANDS9, HANDS10, HANDS11, HANDS12, HANDS13, HANDS14, HANDS15, HANDS16
+	};
+	i = 0;
+	while (i < 16)
+	{
+		if (ft_strcmp(s, hand_keys[i]) == 0)
+			return (hand_values[i]);
+		i++;
+	}
 	return (INVALID);
 }
 
