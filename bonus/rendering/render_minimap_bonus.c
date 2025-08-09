@@ -65,8 +65,7 @@ uint32_t	get_pixel_color(t_all_data *all_data, int map_x, int map_y)
 		return (UINT32_C(0xFF00FF00));
 	else if (all_data->map[map_y][map_x] == 'C')
 		return (UINT32_C(0xFFFF0000));
-	else
-		return (UINT32_C(0xFF000000));
+	return (UINT32_C(0xFF000000));
 }
 
 void	draw_tile_block(t_all_data *all_data,
