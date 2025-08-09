@@ -24,7 +24,7 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define MOVEMENT_SPEED 0.05
+# define MOVEMENT_SPEED 0.08
 # define KEY_ROTATION_SPEED 0.1
 # define MOUSE_ROTATION_SPEED 0.05
 # define MINIMAP_RADIUS 1
@@ -80,7 +80,7 @@ typedef struct s_all_data
 	t_player		*player;
 	t_input_state	*input_state;
 	t_ray			*rays;
-	t_mlx_texture	*textures[9];
+	t_mlx_texture	*textures[24];
 	t_mlx_image		*last_hands;
 	int				ceiling_color;
 	int				floor_color;
@@ -98,6 +98,17 @@ typedef enum e_text_col
 	HANDS3,
 	HANDS4,
 	HANDS5,
+	HANDS6,
+	HANDS7,
+	HANDS8,
+	HANDS9,
+	HANDS10,
+	HANDS11,
+	HANDS12,
+	HANDS13,
+	HANDS14,
+	HANDS15,
+	HANDS16,
 	FLOOR,
 	CEILING,
 	INVALID
@@ -149,7 +160,7 @@ void				mouse_move_hook(double xpos, double ypos, void *all_dat);
 // Utils:
 
 // Parsing utils:
-char				**get_twelve_lines(int fd);
+char				**get_sixteen_lines(int fd);
 char				*get_next_non_empty_line(int fd);
 t_texture_type		get_texture_type(char *s);
 

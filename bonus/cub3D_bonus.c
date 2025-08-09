@@ -12,17 +12,10 @@
 
 #include "include/cub3D_bonus.h"
 
-void	lopo(void)
-{
-	while (1)
-		;
-}
-
 int	main(int argc, char **argv)
 {
 	t_all_data	*all_data;
 
-	atexit(lopo);
 	if (argc != 2)
 	{
 		ft_putendl_fd("Usage: ./cub3D <map.cub>", 2);

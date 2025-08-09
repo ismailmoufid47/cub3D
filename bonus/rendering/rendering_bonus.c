@@ -84,7 +84,7 @@ void	draw_hands(t_all_data *all_data)
 {
 	static int		frame_counter = 0;
 	static int		hand_frame = 0;
-	static int		animation_speed = 8;
+	static int		animation_speed = 2;
 	t_mlx_image		*mlx_img;
 
 	if (frame_counter % animation_speed == 0)
@@ -101,17 +101,15 @@ void	draw_hands(t_all_data *all_data)
 			mlx_image_to_window(all_data->mlx, mlx_img, 0, 0);
 			all_data->last_hands = mlx_img;
 		}
-		hand_frame = (hand_frame + 1) % 4;
+		hand_frame = (hand_frame + 1) % 16;
 	}
 	frame_counter++;
-	if (frame_counter >= animation_speed * 5 * 1000)
-		frame_counter = 0;
 }
 
 void	render(t_all_data *all_data)
 {
 	draw_background(all_data);
 	draw_walls(all_data);
-	draw_minimap(all_data);
 	draw_hands(all_data);
+	draw_minimap(all_data);
 }

@@ -79,9 +79,9 @@ bool	set_colors(t_all_data *all_data)
 		ft_free_split(flor);
 		return (false);
 	}
-	all_data->ceiling_color = (255 << 24) + (ft_atoi(ceil[2]) << 16)
+	all_data->ceiling_color = (255 << 24) + (ft_atoi(ceil[2]) << 24)
 		+ (ft_atoi(ceil[1]) << 8) + ft_atoi(ceil[0]);
-	all_data->floor_color = (255 << 24) + (ft_atoi(flor[2]) << 16)
+	all_data->floor_color = (255 << 24) + (ft_atoi(flor[2]) << 24)
 		+ (ft_atoi(flor[1]) << 8) + ft_atoi(flor[0]);
 	ft_free_split(ceil);
 	ft_free_split(flor);
