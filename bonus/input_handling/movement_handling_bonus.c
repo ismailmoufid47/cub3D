@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                                            */
 /*   movement_handling_bonus.c                                                */
-/*                                                                            */
-/*   By: moel-amr & isel-mou                                                  */
+/*                                                 isel-mou@student.1337.ma   */
+/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
 /*                                                                            */
 /*   Created: 2025/08/07 12:35:35 by moel-amr & isel-mou                      */
 /*   Updated: 2025/08/07 12:35:35 by moel-amr & isel-mou                      */

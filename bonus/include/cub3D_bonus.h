@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                                            */
 /*   cub3D_bonus.h                                                            */
-/*                                                                            */
-/*   By: moel-amr & isel-mou                                                  */
+/*                                                 isel-mou@student.1337.ma   */
+/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
 /*                                                                            */
 /*   Created: 2025/08/07 12:35:24 by moel-amr & isel-mou                      */
 /*   Updated: 2025/08/07 18:25:12 by moel-amr & isel-mou                      */
