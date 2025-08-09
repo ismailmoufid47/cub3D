@@ -42,6 +42,7 @@ SRC_BONUS = bonus/cub3D_bonus.c \
 	  bonus/rendering/rendering_bonus.c \
 	  bonus/rendering/utils/rendering_bonus.c \
 	  bonus/rendering/utils/render_minimap_bonus.c \
+	  bonus/rendering/render_minimap_bonus.c \
 	  bonus/parsing/utils/parse_utils_bonus.c \
 	  bonus/input_handling/input_handling_bonus.c \
 	  bonus/input_handling/movement_handling_bonus.c \

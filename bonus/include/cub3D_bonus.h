@@ -191,6 +191,8 @@ int					get_wall_type(t_ray *ray);
 double				calculate_hit_offset(t_ray *ray, int wall_type);
 void				calculate_wall_bounds(double dis, int *starty, int *endy);
 int					get_texture_x(double hit_offset, t_mlx_texture *texture);
+int					get_map_height(char **map);
+int					get_map_width(char *row);
 
 /*																			  */
 /*									Input Utils:							  */
