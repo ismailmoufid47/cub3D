@@ -92,6 +92,6 @@ re: clean all
 
 restore: fclean
 	rm -rf MLX42/build
-	rm -rf libft/libft.a
+	rm -f libft/libft.a
 
 .PHONY: all clean fclean re restore bonus
