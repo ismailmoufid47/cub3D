@@ -55,8 +55,6 @@ void	draw_player_indicator(t_all_data *all_data)
 
 uint32_t	get_pixel_color(t_all_data *all_data, int map_x, int map_y)
 {
-	if (!all_data || !all_data->map)
-		return (0);
 	if (map_y < 0 || map_y >= get_map_height(all_data->map))
 		return (0);
 	if (map_x < 0 || map_x >= get_map_width(all_data->map[map_y]))
