@@ -32,6 +32,7 @@ typedef enum e_hit_type
 	HORIZONTAL,
 	VERTICAL,
 }					t_hit_type;
+
 typedef struct s_player
 {
 	double			y;
@@ -107,54 +108,71 @@ typedef struct s_wall_render_params
 	int				texture_height;
 }					t_wall_render_params;
 
-// Parse:
+/*									Parse:									  */
+
 t_all_data			*init_all_data(char *filename);
-
-// Parse Textures:
+/*																			  */
+/*							Parse Textures and Colors:						  */
 char				**get_textures_and_colors(int fd, t_all_data *all_data);
-// Parse Map:
+/*																			  */
+/*									Parse Map:								  */
 char				**get_map(int fd);
+/*																			  */
+/*																			  */
 
-// Cast Rays:
+/*								 	 Cast Rays:								  */
+
 void				cast_rays(t_all_data *all_data);
+/*																			  */
+/*																			  */
 
-// Render:
+/*									Render:									  */
+
 void				render(t_all_data *all_data);
+/*																			  */
+/*																			  */
 
-// Handle Input:
+/*									Handle Input:							  */
+
 void				init_input_state(t_all_data *all_data);
 void				game_loop(void *all_dat);
 void				key_press_hook(t_mlx_key_data keydata, void *all_dat);
+/*																			  */
+/*																			  */
 
-// Utils:
+/*									Utils:									  */
 
-// Parsing utils:
+/*									Parse Utils:							  */
 char				**get_six_lines(int fd);
 char				*get_next_non_empty_line(int fd);
 t_texture_type		get_texture_type(char *s);
 
-// Ray casting utils:
+/*									Ray Casting Utils:						  */
 void				init_ray(t_ray *ray, t_player *player, double angle);
 void				init_ray_cast_data(t_ray_cast_data *data,
 						t_all_data *all_data, double angle);
 void				calculate_deltas(t_ray_cast_data *data);
-
-// Rendering utils:
+/*																			  */
+/*									Render Utils:							  */
 int					get_wall_type(t_ray *ray);
 double				calculate_hit_offset(t_ray *ray, int wall_type);
-void				calculate_wall_bounds(double dis, int *start_y, int *end_y);
+void				calculate_wall_bounds(double dis, int *starty, int *endy);
 int					get_texture_x(double hit_offset, t_mlx_texture *texture);
+/*																			  */
+/*																			  */
 
-// Errors:
+/*									Errors:									  */
 
-// MLX Init Error:
+/*									MLX Init Error:							  */
 void				mlx_init_error(t_all_data *all_data);
+/*																			  */
+/*									Parse Error:							  */
+void				textures_error(char **textures_and_colors, int fd);
+/*																			  */
+/*																			  */
 
-// Textures Error:
-void				post_textures_and_colors_error(char **textures_and_colors,
-						int fd);
+/*									Free Data:								  */
 
-// Free Resources:
 void				free_all_data(t_all_data *all_data);
 
 #endif

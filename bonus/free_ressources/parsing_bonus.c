@@ -19,7 +19,7 @@ void	mlx_init_error(t_all_data *all_data)
 	exit(EXIT_FAILURE);
 }
 
-void	post_textures_and_colors_error(char **textures_and_colors, int fd)
+void	textures_error(char **textures_and_colors, int fd)
 {
 	close(fd);
 	ft_free_split(textures_and_colors);

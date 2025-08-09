@@ -101,10 +101,10 @@ t_all_data	*init_all_data(char *filename)
 	fd = open_cub_file(filename);
 	all_data->textures_and_colors = get_textures_and_colors(fd, all_data);
 	if (!all_data->textures_and_colors || !set_colors(all_data))
-		post_textures_and_colors_error(all_data->textures_and_colors, fd);
+		textures_error(all_data->textures_and_colors, fd);
 	all_data->map = get_map(fd);
 	if (!all_data->map)
-		post_textures_and_colors_error(all_data->textures_and_colors, fd);
+		textures_error(all_data->textures_and_colors, fd);
 	close(fd);
 	image = mlx_new_image(all_data->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(all_data->mlx, image, 0, 0);

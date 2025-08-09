@@ -2,9 +2,8 @@ NO textures/blue_stone.png
 SO textures/color_stone.png
 WE textures/grey_stone.png
 EA textures/red_brick.png
-
-C 50,0,50
-F 255,255,0
+C 50,100,50
+F 200,200,0
 
         1111111111111111111111111
         1000000000110000000000001
