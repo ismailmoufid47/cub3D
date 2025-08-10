@@ -21,13 +21,13 @@ int	open_cub_file(char *filename)
 	if (!found || *(found + 4) || found == filename || ft_strrchr(filename, '/')
 		+ 1 == found)
 	{
-		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Error\nInvalid file name", 2);
 		exit(EXIT_FAILURE);
 	}
 	fd = open(filename, O_RDONLY, 0777);
 	if (fd == -1)
 	{
-		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Error\nCould not open file", 2);
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
@@ -77,6 +77,7 @@ bool	set_colors(t_all_data *all_data)
 	{
 		ft_free_split(ceil);
 		ft_free_split(flor);
+		ft_putendl_fd("Error\nInvalid color format", 2);
 		return (false);
 	}
 	all_data->ceiling_color = (255 << 24) + (ft_atoi(ceil[2]) << 24)
@@ -92,7 +93,6 @@ t_all_data	*init_all_data(char *filename)
 {
 	int			fd;
 	t_all_data	*all_data;
-	t_mlx_image	*image;
 
 	all_data = malloc(sizeof(t_all_data));
 	all_data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
@@ -101,14 +101,20 @@ t_all_data	*init_all_data(char *filename)
 	fd = open_cub_file(filename);
 	all_data->textures_and_colors = get_textures_and_colors(fd, all_data);
 	if (!all_data->textures_and_colors || !set_colors(all_data))
+	{
+		printf("Error\nInvalid textures or colors\n");
 		textures_error(all_data->textures_and_colors, fd);
+	}
 	all_data->map = get_map(fd);
 	if (!all_data->map)
+	{
+		printf("Error\nInvalid map\n");
 		textures_error(all_data->textures_and_colors, fd);
+	}
 	close(fd);
-	image = mlx_new_image(all_data->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(all_data->mlx, image, 0, 0);
-	all_data->window_pixels = (uint32_t *)image->pixels;
+	all_data->window_image = mlx_new_image(all_data->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(all_data->mlx, all_data->window_image, 0, 0);
+	all_data->window_pixels = (uint32_t *)all_data->window_image->pixels;
 	all_data->player = malloc(sizeof(t_player));
 	init_player(all_data->player, all_data->map);
 	all_data->rays = malloc(sizeof(t_ray) * WIDTH);

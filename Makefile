@@ -1,7 +1,7 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I MLX42/include/MLX42 -I libft/include
 
 OS = $(shell uname -s)
 

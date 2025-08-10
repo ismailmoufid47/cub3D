@@ -30,7 +30,7 @@ char	***validate_textures_and_colors(int fd)
 			close(fd);
 			ft_free_split(lines);
 			free_splits(textures_and_colors);
-			ft_putendl_fd("Error", 2);
+			ft_putendl_fd("Error\nInvalid texture or color format", 2);
 			exit(EXIT_FAILURE);
 		}
 		i++;
@@ -66,7 +66,11 @@ bool	check_textures(char **textures_and_colors, t_all_data *all_data)
 	{
 		all_data->textures[i] = mlx_load_png(textures_and_colors[i]);
 		if (!all_data->textures[i])
+		{
+			ft_putstr_fd("Error\nFailed to load texture: ", 2);
+			ft_putendl_fd(textures_and_colors[i], 2);
 			return (false);
+		}
 		i++;
 	}
 	return (true);
@@ -89,6 +93,7 @@ char	**get_textures_and_colors(int fd, t_all_data *all_data)
 		if (type == INVALID || count[type])
 		{
 			free_splits(textures_and_colors);
+			ft_putendl_fd("Error\nDuplicate or invalid texture type", 2);
 			return (NULL);
 		}
 		count[type]++;

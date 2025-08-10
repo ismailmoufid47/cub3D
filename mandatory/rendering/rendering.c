@@ -18,7 +18,7 @@ void	draw_background(t_all_data *all_data)
 	int			half_pixels;
 	int			i;
 
-	screen_pixels = (uint32_t *)all_data->window_pixels;
+	screen_pixels = all_data->window_pixels;
 	half_pixels = (WIDTH * HEIGHT) / 2;
 	i = 0;
 	while (i < half_pixels)
@@ -76,7 +76,7 @@ void	show_ray_on_screen(t_all_data *all_data, double distance, int screen_x)
 	params.tex_x = get_texture_x(hit_offset, all_data->textures[wall_type]);
 	params.texture_width = all_data->textures[wall_type]->width;
 	params.texture_height = all_data->textures[wall_type]->height;
-	render_wall_column((uint32_t *)all_data->window_pixels,
+	render_wall_column(all_data->window_pixels,
 		(uint32_t *)all_data->textures[wall_type]->pixels, screen_x, params);
 }
 

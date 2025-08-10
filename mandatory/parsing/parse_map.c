@@ -81,6 +81,8 @@ char	**get_map(int fd)
 		return (ft_free_split(map), NULL);
 	if (ft_strchr(map[0], '\n'))
 		*ft_strchr(map[0], '\n') = '\0';
+	if (ft_strchr(map[0], '\r'))
+		*ft_strchr(map[0], '\r') = '\0';
 	while (map[size - 2])
 	{
 		map = ft_recalloc(map, size * sizeof(char *), (size + 1)
@@ -90,6 +92,8 @@ char	**get_map(int fd)
 		{
 			if (ft_strchr(map[size - 1], '\n'))
 				*ft_strchr(map[size - 1], '\n') = '\0';
+			if (ft_strchr(map[size - 1], '\r'))
+				*ft_strchr(map[size - 1], '\r') = '\0';
 			if (!*map[size - 1] || is_only_spaces(map[size - 1]))
 				return (ft_free_split(map), NULL);
 		}

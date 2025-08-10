@@ -65,6 +65,7 @@ typedef struct s_all_data
 	char			**textures_and_colors;
 	char			**map;
 	t_mlx			*mlx;
+	t_mlx_image		*window_image;
 	uint32_t		*window_pixels;
 	t_player		*player;
 	t_input_state	*input_state;

@@ -18,7 +18,7 @@ void	draw_background(t_all_data *all_data)
 	int			half_pixels;
 	int			i;
 
-	screen_pixels = (uint32_t *)all_data->window_pixels;
+	screen_pixels = all_data->window_pixels;
 	half_pixels = (WIDTH * HEIGHT) / 2;
 	i = 0;
 	while (i < half_pixels)

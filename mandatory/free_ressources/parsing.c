@@ -15,7 +15,7 @@
 void	mlx_init_error(t_all_data *all_data)
 {
 	free(all_data);
-	ft_putendl_fd("Error", 2);
+	ft_putendl_fd("Error\nMLX initialization failed", 2);
 	exit(EXIT_FAILURE);
 }
 
@@ -23,6 +23,6 @@ void	textures_error(char **textures_and_colors, int fd)
 {
 	close(fd);
 	ft_free_split(textures_and_colors);
-	ft_putendl_fd("Error", 2);
+	ft_putendl_fd("Error\nInvalid texture or color format", 2);
 	exit(EXIT_FAILURE);
 }

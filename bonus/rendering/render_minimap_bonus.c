@@ -53,7 +53,7 @@ void	draw_player_indicator(t_all_data *all_data)
 	}
 }
 
-uint32_t	get_pixel_color(t_all_data *all_data, int map_x, int map_y)
+uint32_t	get_tile_color(t_all_data *all_data, int map_x, int map_y)
 {
 	if (map_y < 0 || map_y >= get_map_height(all_data->map))
 		return (0);
@@ -112,7 +112,7 @@ void	draw_minimap(t_all_data *all_data)
 		dx = -MINIMAP_RADIUS - 1;
 		while (++dx <= MINIMAP_RADIUS)
 		{
-			color = get_pixel_color(all_data,
+			color = get_tile_color(all_data,
 					(int)all_data->player->x + dx,
 					(int)all_data->player->y + dy);
 			if (color != 0)

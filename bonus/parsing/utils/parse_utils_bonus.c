@@ -41,11 +41,13 @@ char	**get_sixteen_lines(int fd)
 		{
 			close(fd);
 			ft_free_split(lines);
-			ft_putendl_fd("Error", 2);
+			ft_putendl_fd("Error\nMissing texture or color", 2);
 			exit(EXIT_FAILURE);
 		}
 		if (ft_strchr(lines[i], '\n'))
 			*(ft_strchr(lines[i], '\n')) = '\0';
+		if (ft_strchr(lines[i], '\r'))
+			*(ft_strchr(lines[i], '\r')) = '\0';
 		i++;
 	}
 	return (lines);

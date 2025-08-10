@@ -23,5 +23,7 @@ void	free_all_data(t_all_data *all_data)
 	mlx_delete_texture(all_data->textures[SOUTH]);
 	mlx_delete_texture(all_data->textures[WEST]);
 	mlx_delete_texture(all_data->textures[EAST]);
+	mlx_delete_image(all_data->mlx, all_data->window_image);
+	mlx_terminate(all_data->mlx);
 	free(all_data);
 }
