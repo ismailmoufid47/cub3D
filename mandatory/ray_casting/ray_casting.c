@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                                            */
-/*   ray_casting.c                                                            */
-/*                                                 isel-mou@student.1337.ma   */
-/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
-/*                                                                            */
-/*   Created: 2025/08/07 12:34:11 by moel-amr & isel-mou                      */
-/*   Updated: 2025/08/07 12:34:11 by moel-amr & isel-mou                      */
+/*                                                        :::      ::::::::   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/07 12:34:11 by moel-amr &        #+#    #+#             */
+/*   Updated: 2025/08/12 12:59:20 by moel-amr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-void	calculate_initial_distances(t_ray_cast_data *data,
-		t_all_data *all_data)
+void	calculate_first_intersection(t_ray_cast_data *data, t_all_data *all_data)
 {
 	if (data->x_ray_direction > 0)
 		data->ray_distance_x = data->delta_x * ((data->map_x + 1)
@@ -33,45 +32,36 @@ void	calculate_initial_distances(t_ray_cast_data *data,
 		data->ray_distance_y = INFINITY;
 }
 
-void	step_horizontal(t_ray_cast_data *data, t_all_data *all_data,
-		t_ray *ray)
+void	step_horizontal(t_ray_cast_data *data, t_ray *ray)
 {
 	data->distance_to_wall = data->ray_distance_y;
-	if (all_data->map[data->map_y][data->map_x] != '1')
-	{
-		if (data->y_ray_direction > 0)
-			data->map_y += 1;
-		else
-			data->map_y -= 1;
-		data->ray_distance_y += data->delta_y;
-		ray->hit_type = HORIZONTAL;
-	}
+	if (data->y_ray_direction > 0)
+		data->map_y += 1;
+	else
+		data->map_y -= 1;
+	data->ray_distance_y += data->delta_y;
+	ray->hit_type = HORIZONTAL;
 }
 
-void	step_vertical(t_ray_cast_data *data, t_all_data *all_data,
-		t_ray *ray)
+void	step_vertical(t_ray_cast_data *data, t_ray *ray)
 {
 	data->distance_to_wall = data->ray_distance_x;
-	if (all_data->map[data->map_y][data->map_x] != '1')
-	{
-		if (data->x_ray_direction > 0)
-			data->map_x += 1;
-		else
-			data->map_x -= 1;
-		data->ray_distance_x += data->delta_x;
-		ray->hit_type = VERTICAL;
-	}
+	if (data->x_ray_direction > 0)
+		data->map_x += 1;
+	else
+		data->map_x -= 1;
+	data->ray_distance_x += data->delta_x;
+	ray->hit_type = VERTICAL;
 }
 
-void	perform_dda(t_ray_cast_data *data, t_all_data *all_data,
-		t_ray *ray)
+void	perform_dda(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
 {
 	while (all_data->map[data->map_y][data->map_x] != '1')
 	{
 		if (data->ray_distance_x < data->ray_distance_y)
-			step_vertical(data, all_data, ray);
+			step_vertical(data, ray);
 		else
-			step_horizontal(data, all_data, ray);
+			step_horizontal(data, ray);
 	}
 	ray->end_x = all_data->player->x + data->distance_to_wall
 		* data->x_ray_direction;
@@ -90,12 +80,12 @@ void	cast_rays(t_all_data *all)
 	while (screen_x < WIDTH)
 	{
 		screen_x_offset_from_center = screen_x - (WIDTH / 2);
-		ray_angle = all->player->direction
-			+ atan2(screen_x_offset_from_center, (WIDTH / 2));
+		ray_angle = all->player->direction + atan2(screen_x_offset_from_center,
+				(WIDTH / 2));
 		init_ray(&all->rays[screen_x], all->player, ray_angle);
 		init_ray_cast_data(&data, all, ray_angle);
 		calculate_deltas(&data);
-		calculate_initial_distances(&data, all);
+		calculate_first_intersection(&data, all);
 		perform_dda(&data, all, &all->rays[screen_x]);
 		screen_x++;
 	}

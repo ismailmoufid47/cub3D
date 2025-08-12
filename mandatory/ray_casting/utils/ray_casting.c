@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                                            */
-/*   ray_casting.c                                                            */
-/*                                                 isel-mou@student.1337.ma   */
-/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
-/*                                                                            */
-/*   Created: 2025/08/07 12:33:45 by moel-amr & isel-mou                      */
-/*   Updated: 2025/08/07 12:33:50 by moel-amr & isel-mou                      */
+/*                                                        :::      ::::::::   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moel-amr <moel-amr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/07 12:33:45 by moel-amr &        #+#    #+#             */
+/*   Updated: 2025/08/12 12:31:38 by moel-amr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,8 @@ void	init_ray_cast_data(t_ray_cast_data *data, t_all_data *all_data,
 
 void	calculate_deltas(t_ray_cast_data *data)
 {
-	if (data->x_ray_direction == 0)
-		data->delta_x = INFINITY;
-	else
+	if (data->x_ray_direction != 0)
 		data->delta_x = fabs(1 / data->x_ray_direction);
-	if (data->y_ray_direction == 0)
-		data->delta_y = INFINITY;
-	else
+	if (data->y_ray_direction != 0)
 		data->delta_y = fabs(1 / data->y_ray_direction);
 }
