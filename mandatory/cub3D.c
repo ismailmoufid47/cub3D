@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                                            */
 /*   cub3D.c                                                                  */
-/*                                                 isel-mou@student.1337.ma   */
-/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
+/*                                                 isel-mou@student.42.fr     */
+/*   By: moel-amr & isel-mou                       moel-amr@student.42.fr     */
 /*                                                                            */
 /*   Created: 2025/08/07 12:33:24 by moel-amr & isel-mou                      */
 /*   Updated: 2025/08/07 12:33:24 by moel-amr & isel-mou                      */
@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "include/cub3D.h"
-
-
 
 int	main(int argc, char **argv)
 {

@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                                            */
 /*   parse_utils.c                                                            */
-/*                                                 isel-mou@student.1337.ma   */
-/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
+/*                                                 isel-mou@student.42.fr     */
+/*   By: moel-amr & isel-mou                       moel-amr@student.42.fr     */
 /*                                                                            */
 /*   Created: 2025/08/07 12:33:48 by moel-amr & isel-mou                      */
 /*   Updated: 2025/08/07 12:33:48 by moel-amr & isel-mou                      */
@@ -68,4 +68,18 @@ t_texture_type	get_texture_type(char *s)
 	if (ft_strcmp(s, "C") == 0)
 		return (CEILING);
 	return (INVALID);
+}
+
+void	remove_newline(char *line)
+{
+	char	*newline_pos;
+
+	if (!line)
+		return ;
+	newline_pos = ft_strchr(line, '\n');
+	if (newline_pos)
+		*newline_pos = '\0';
+	newline_pos = ft_strchr(line, '\r');
+	if (newline_pos)
+		*newline_pos = '\0';
 }

@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                                            */
 /*   parse_map_bonus.c                                                        */
-/*                                                 isel-mou@student.1337.ma   */
-/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
+/*                                                 isel-mou@student.42.fr     */
+/*   By: moel-amr & isel-mou                       moel-amr@student.42.fr     */
 /*                                                                            */
 /*   Created: 2025/08/07 12:36:49 by moel-amr & isel-mou                      */
 /*   Updated: 2025/08/07 12:36:49 by moel-amr & isel-mou                      */
@@ -80,10 +80,7 @@ char	**get_map(int fd)
 	map[0] = get_next_non_empty_line(fd);
 	if (!map[0])
 		return (ft_free_split(map), NULL);
-	if (ft_strchr(map[0], '\n'))
-		*ft_strchr(map[0], '\n') = '\0';
-	if (ft_strchr(map[0], '\r'))
-		*ft_strchr(map[0], '\r') = '\0';
+	remove_newline(map[0]);
 	while (map[size - 2])
 	{
 		map = ft_recalloc(map, size * sizeof(char *),
@@ -91,10 +88,7 @@ char	**get_map(int fd)
 		map[size - 1] = get_next_line(fd);
 		if (map[size - 1])
 		{
-			if (ft_strchr(map[size - 1], '\n'))
-				*ft_strchr(map[size - 1], '\n') = '\0';
-			if (ft_strchr(map[size - 1], '\r'))
-				*ft_strchr(map[size - 1], '\r') = '\0';
+			remove_newline(map[size - 1]);
 			if (!*map[size - 1] || is_only_spaces(map[size - 1]))
 				return (ft_free_split(map), NULL);
 		}

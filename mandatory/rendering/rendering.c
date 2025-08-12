@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                                            */
 /*   rendering.c                                                              */
-/*                                                 isel-mou@student.1337.ma   */
-/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
+/*                                                 isel-mou@student.42.fr     */
+/*   By: moel-amr & isel-mou                       moel-amr@student.42.fr     */
 /*                                                                            */
 /*   Created: 2025/08/07 12:34:51 by moel-amr & isel-mou                      */
 /*   Updated: 2025/08/07 12:35:05 by moel-amr & isel-mou                      */

@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                                            */
 /*   cub3D_bonus.h                                                            */
-/*                                                 isel-mou@student.1337.ma   */
-/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
+/*                                                 isel-mou@student.42.fr     */
+/*   By: moel-amr & isel-mou                       moel-amr@student.42.fr     */
 /*                                                                            */
 /*   Created: 2025/08/07 12:35:24 by moel-amr & isel-mou                      */
 /*   Updated: 2025/08/07 18:25:12 by moel-amr & isel-mou                      */
@@ -178,12 +178,11 @@ void				mouse_move_hook(double xpos, double ypos, void *all_dat);
 char				**get_sixteen_lines(int fd);
 char				*get_next_non_empty_line(int fd);
 t_texture_type		get_texture_type(char *s);
+void				remove_newline(char *line);
 
 /*									Ray Casting Utils:						  */
-void				init_ray(t_ray *ray, t_player *player, double angle);
-void				init_ray_cast_data(t_ray_cast_data *data,
-						t_all_data *all_data, double angle);
-void				calculate_deltas(t_ray_cast_data *data);
+void				init_ray_cast_data(t_all_data *all, t_ray_cast_data *cast,
+						t_ray *ray, int screen_x);
 /*																			  */
 /*									Render Utils:							  */
 void				draw_minimap(t_all_data *all_data);

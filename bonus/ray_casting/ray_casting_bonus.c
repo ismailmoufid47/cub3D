@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                                            */
 /*   ray_casting_bonus.c                                                      */
-/*                                                 isel-mou@student.1337.ma   */
-/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
+/*                                                 isel-mou@student.42.fr     */
+/*   By: moel-amr & isel-mou                       moel-amr@student.42.fr     */
 /*                                                                            */
 /*   Created: 2025/08/07 12:36:59 by moel-amr & isel-mou                      */
 /*   Updated: 2025/08/07 12:36:59 by moel-amr & isel-mou                      */
@@ -85,19 +85,12 @@ void	perform_dda(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
 void	cast_rays(t_all_data *all)
 {
 	t_ray_cast_data	data;
-	double			ray_angle;
-	int				screen_x_offset_from_center;
 	int				screen_x;
 
 	screen_x = 0;
 	while (screen_x < WIDTH)
 	{
-		screen_x_offset_from_center = screen_x - (WIDTH / 2);
-		ray_angle = all->player->direction + atan2(screen_x_offset_from_center,
-				(WIDTH / 2));
-		init_ray(&all->rays[screen_x], all->player, ray_angle);
-		init_ray_cast_data(&data, all, ray_angle);
-		calculate_deltas(&data);
+		init_ray_cast_data(all, &data, &all->rays[screen_x], screen_x);
 		calculate_initial_distances(&data, all);
 		perform_dda(&data, all, &all->rays[screen_x]);
 		screen_x++;

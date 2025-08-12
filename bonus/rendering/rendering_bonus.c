@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                                            */
 /*   rendering_bonus.c                                                        */
-/*                                                 isel-mou@student.1337.ma   */
-/*   By: moel-amr & isel-mou                       moel-amr@student.1337.ma   */
+/*                                                 isel-mou@student.42.fr     */
+/*   By: moel-amr & isel-mou                       moel-amr@student.42.fr     */
 /*                                                                            */
 /*   Created: 2025/08/07 12:35:44 by moel-amr & isel-mou                      */
 /*   Updated: 2025/08/07 12:35:44 by moel-amr & isel-mou                      */
@@ -94,7 +94,7 @@ void	draw_hands(t_all_data *all_data)
 			mlx_delete_image(all_data->mlx, all_data->last_hands);
 			all_data->last_hands = NULL;
 		}
-		mlx_img = mlx_texture_to_image(all_data->mlx, 
+		mlx_img = mlx_texture_to_image(all_data->mlx,
 				all_data->textures[HANDS1 + hand_frame]);
 		if (mlx_img)
 		{
