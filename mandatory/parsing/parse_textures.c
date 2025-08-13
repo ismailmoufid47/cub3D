@@ -24,7 +24,6 @@ char	***validate_textures_and_colors(int fd)
 	while (i < 6)
 	{
 		textures_and_colors[i] = ft_split(lines[i], ' ');
-		printf("Texture %d: %s\n", i, textures_and_colors[i][0]);
 		if (!textures_and_colors[i][0] || !textures_and_colors[i][1]
 			|| textures_and_colors[i][2])
 		{

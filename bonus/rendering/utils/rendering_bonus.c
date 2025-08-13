@@ -38,9 +38,9 @@ int	get_wall_type(t_ray *ray)
 	if (ray->hit_type == VERTICAL)
 	{
 		if (ray->angle > M_PI / 2 && ray->angle < 3 * M_PI / 2)
-			return (EAST);
-		else
 			return (WEST);
+		else
+			return (EAST);
 	}
 	else
 	{
@@ -59,18 +59,18 @@ double	calculate_hit_offset(t_ray *ray, int wall_type)
 	{
 		hit_offset = ray->end_y - (int)ray->end_y;
 		if (wall_type == WEST)
-			hit_offset = 1.0f - hit_offset;
+			hit_offset = 1 - hit_offset;
 	}
 	else
 	{
 		hit_offset = ray->end_x - (int)ray->end_x;
 		if (wall_type == SOUTH)
-			hit_offset = 1.0f - hit_offset;
+			hit_offset = 1 - hit_offset;
 	}
 	if (hit_offset < 0)
-		hit_offset += 1.0f;
-	if (hit_offset >= 1.0f)
-		hit_offset -= 1.0f;
+		hit_offset += 1;
+	if (hit_offset >= 1)
+		hit_offset -= 1;
 	return (hit_offset);
 }
 
@@ -96,9 +96,9 @@ int	get_texture_x(double hit_offset, t_mlx_texture *texture)
 	if (texture->width <= 0)
 		return (0);
 	if (hit_offset < 0)
-		hit_offset += 1.0f;
-	if (hit_offset >= 1.0f)
-		hit_offset -= 1.0f;
+		hit_offset += 1;
+	if (hit_offset >= 1)
+		hit_offset -= 1;
 	tex_x = (int)(hit_offset * texture->width);
 	return (tex_x);
 }

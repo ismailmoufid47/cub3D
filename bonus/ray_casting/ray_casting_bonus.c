@@ -32,7 +32,7 @@ void	calculate_initial_distances(t_ray_cast_data *data, t_all_data *all_data)
 		data->ray_distance_y = INFINITY;
 }
 
-void	step_horizontal(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
+void	step_in_y(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
 {
 	data->distance_to_wall = data->ray_distance_y;
 	if (all_data->map[data->map_y][data->map_x] != '1'
@@ -47,7 +47,7 @@ void	step_horizontal(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
 	}
 }
 
-void	step_vertical(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
+void	step_in_x(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
 {
 	data->distance_to_wall = data->ray_distance_x;
 	if (all_data->map[data->map_y][data->map_x] != '1'
@@ -68,9 +68,9 @@ void	perform_dda(t_ray_cast_data *data, t_all_data *all_data, t_ray *ray)
 		&& all_data->map[data->map_y][data->map_x] != 'D')
 	{
 		if (data->ray_distance_x < data->ray_distance_y)
-			step_vertical(data, all_data, ray);
+			step_in_x(data, all_data, ray);
 		else
-			step_horizontal(data, all_data, ray);
+			step_in_y(data, all_data, ray);
 	}
 	if (all_data->map[data->map_y][data->map_x] == '1')
 		ray->whats_hit = WALL_HIT;
