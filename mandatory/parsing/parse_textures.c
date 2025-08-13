@@ -24,6 +24,7 @@ char	***validate_textures_and_colors(int fd)
 	while (i < 6)
 	{
 		textures_and_colors[i] = ft_split(lines[i], ' ');
+		printf("Texture %d: %s\n", i, textures_and_colors[i][0]);
 		if (!textures_and_colors[i][0] || !textures_and_colors[i][1]
 			|| textures_and_colors[i][2])
 		{
@@ -66,11 +67,7 @@ bool	check_textures(char **textures_and_colors, t_all_data *all_data)
 	{
 		all_data->textures[i] = mlx_load_png(textures_and_colors[i]);
 		if (!all_data->textures[i])
-		{
-			ft_putstr_fd("Error\nFailed to load texture: ", 2);
-			ft_putendl_fd(textures_and_colors[i], 2);
 			return (false);
-		}
 		i++;
 	}
 	return (true);
@@ -93,7 +90,6 @@ char	**get_textures_and_colors(int fd, t_all_data *all_data)
 		if (type == INVALID || count[type])
 		{
 			free_splits(textures_and_colors);
-			ft_putendl_fd("Error\nDuplicate or invalid texture type", 2);
 			return (NULL);
 		}
 		count[type]++;

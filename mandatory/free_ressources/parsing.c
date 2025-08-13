@@ -23,6 +23,6 @@ void	textures_error(char **textures_and_colors, int fd)
 {
 	close(fd);
 	ft_free_split(textures_and_colors);
-	ft_putendl_fd("Error\nInvalid texture or map", 2);
+	ft_putendl_fd("Error\nInvalid textures or map", 2);
 	exit(EXIT_FAILURE);
 }
